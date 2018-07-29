@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     name: test
-    url: jdbc:mysql://127.0.0.1:3306/blogx?characterEncoding=UTF-8&useSSL=true
+    url: jdbc:mysql://127.0.0.1:3306/site?characterEncoding=UTF-8&useSSL=true
     username: root
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
