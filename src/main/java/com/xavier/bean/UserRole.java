@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * 用户角色对应关系Bean
@@ -21,14 +23,14 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class UserRole extends BaseEntity {
 
-    /**
-     * 用户Id
-     */
-    @Column(name = "user_id")
-    private String userId;
-    /**
-     * 角色Id
-     */
-    @Column(name = "role_id")
-    private String roleId;
+	/**
+	 * 用户Id
+	 */
+	@Column(name = "user_id")
+	private String userId;
+	/**
+	 * 角色Id
+	 */
+	@Column(name = "role_id")
+	private String roleId;
 }

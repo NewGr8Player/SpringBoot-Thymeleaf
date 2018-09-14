@@ -12,6 +12,7 @@ import javax.persistence.Table;
 
 /**
  * 角色Bean
+ *
  * @author NewGr8Player
  */
 @Entity
@@ -22,9 +23,9 @@ import javax.persistence.Table;
 @AllArgsConstructor
 public class Role extends BaseEntity {
 
-    /**
-     * 角色名称
-     */
-    @Column(name = "role_name")
-    private String roleName;
+	/**
+	 * 角色名称
+	 */
+	@Column(name = "role_name")
+	private String roleName;
 }

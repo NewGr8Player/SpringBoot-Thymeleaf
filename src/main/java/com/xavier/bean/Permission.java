@@ -23,9 +23,9 @@ import javax.persistence.Table;
 @AllArgsConstructor
 public class Permission extends BaseEntity {
 
-    /**
-     * 权限名称
-     */
-    @Column(name = "permission_name")
-    private String permissionName;
+	/**
+	 * 权限名称
+	 */
+	@Column(name = "permission_name")
+	private String permissionName;
 }

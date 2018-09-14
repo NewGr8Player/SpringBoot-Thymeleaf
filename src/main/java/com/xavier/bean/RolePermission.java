@@ -12,6 +12,7 @@ import javax.persistence.Table;
 
 /**
  * 权限角色对应关系Bean
+ *
  * @author NewGr8Player
  */
 @Entity
@@ -22,14 +23,14 @@ import javax.persistence.Table;
 @AllArgsConstructor
 public class RolePermission extends BaseEntity {
 
-    /**
-     * 角色Id
-     */
-    @Column(name = "role_id")
-    private String roleId;
-    /**
-     * 权限Id
-     */
-    @Column(name = "permission_id")
-    private String permissionId;
+	/**
+	 * 角色Id
+	 */
+	@Column(name = "role_id")
+	private String roleId;
+	/**
+	 * 权限Id
+	 */
+	@Column(name = "permission_id")
+	private String permissionId;
 }
