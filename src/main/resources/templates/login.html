@@ -2,49 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>登录页</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <script type="application/x-javascript">
-        addEventListener("load", function () {
-            setTimeout(hideURLbar, 0);
-        }, false);
-
-        function hideURLbar() {
-            window.scrollTo(0, 1);
-        } </script>
-    <link th:href="@{/static/login/css/font-awesome.min.css}" rel="stylesheet" type="text/css" media="all">
-    <link th:href="@{/static/login/css/snow.css}" rel="stylesheet" type="text/css" media="all"/>
-    <link th:href="@{/static/login/css/style.css}" rel="stylesheet" type="text/css" media="all"/>
-    <link th:href="@{/static/layui/css/layui.css}" rel="stylesheet" type="text/css" media="all"/>
+    <div th:include="/common/base::head"></div>
 </head>
 <body>
-<div class="snow-container">
-    <div class="snow foreground"></div>
-    <div class="snow foreground layered"></div>
-    <div class="snow middleground"></div>
-    <div class="snow middleground layered"></div>
-    <div class="snow background"></div>
-    <div class="snow background layered"></div>
-</div>
-<div class="top-buttons-agileinfo">
-</div>
-<h1>吉林省汇通驾校车辆服务管理系统</h1>
-<div class="main-agileits">
-    <div class="form-w3-agile">
-        <h2 class="sub-agileits-w3layouts">后台登录</h2>
-        <form th:action="@{/login}" th:method="post">
-            <input type="text" name="username" placeholder="用户" required="required"/>
-            <input type="password" name="password" placeholder="密码" required="required"/>
-            <div class="submit-w3l">
-                <input type="submit" value="登录">
-            </div>
-        </form>
+<form th:action="@{/login}" th:method="post">
+    <input type="text" name="username" placeholder="用户" required="required"/>
+    <input type="password" name="password" placeholder="密码" required="required"/>
+    <div class="submit-w3l">
+        <input type="submit" value="登录">
     </div>
-</div>
-
-<div class="copyright w3-agile">
-    <p>版权信息</p>
-</div>
-<script type="text/javascript" th:src="@{/static/login/js/jquery-2.1.4.min.js}"></script>
+</form>
+<script type="text/javascript">
+    $(function(){
+        alert('2');
+    })
+</script>
 </body>
 </html>

@@ -8,6 +8,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,7 +20,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Cacheable(cacheNames = {"user"}, unless = "#result eq null")
-    public Optional<User> findByUserName(String username) {
+    public User findByUserName(String username) {
         return this.userDao.findByUsername(username);
     }
 }

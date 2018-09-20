@@ -1,23 +1,27 @@
 package com.xavier.dao;
 
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.xavier.bean.UserRole;
-import org.springframework.data.repository.CrudRepository;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * 用户角色Dao
  *
  * @author NewGr8Player
  */
-public interface UserRoleDao extends CrudRepository<UserRole, String> {
+@Mapper
+public interface UserRoleDao extends BaseMapper<UserRole> {
 
-    /**
-     * 根据用户Id查找角色
-     *
-     * @param userId
-     * @return
-     */
-    List<UserRole> findByUserId(String userId);
+	/**
+	 * 根据用户Id查找用户角色
+	 *
+	 * @param userId
+	 * @return
+	 */
+	@Select("SELECT * FROM sys_user_role WHERE user_id = #{userId}")
+	List<UserRole> findByUserId(@Param("userId") String userId);
 }

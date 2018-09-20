@@ -19,7 +19,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @Cacheable(cacheNames = {"role"}, unless = "#result eq null")
-    public Optional<Role> findById(String id) {
+    public Role findById(String id) {
         return this.roleDao.findById(id);
     }
 }

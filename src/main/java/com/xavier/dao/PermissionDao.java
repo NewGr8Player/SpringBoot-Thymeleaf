@@ -1,12 +1,19 @@
 package com.xavier.dao;
 
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.xavier.bean.Permission;
-import org.springframework.data.repository.CrudRepository;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * 权限Dao
  *
  * @author NewGr8Player
  */
-public interface PermissionDao extends CrudRepository<Permission, String> {
+@Mapper
+public interface PermissionDao extends BaseMapper<Permission> {
+
+	@Select("select * from sys_permission WHERE id=#{id}")
+	Permission findById(@Param("id") String id);
 }

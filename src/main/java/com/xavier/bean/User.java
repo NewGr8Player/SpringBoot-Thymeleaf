@@ -1,19 +1,17 @@
 package com.xavier.bean;
 
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableName;
 import com.xavier.bean.base.BaseEntity;
+import com.xavier.common.util.PasswordUtil;
 import lombok.*;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
 /**
  * 用户Bean
  *
  * @author NewGr8Player
  */
-@Entity
-@Table(name = "sys_user")
+@TableName("sys_user")
 @Getter
 @Setter
 @ToString
@@ -24,11 +22,21 @@ public class User extends BaseEntity {
 	/**
 	 * 用户名
 	 */
-	@Column(name = "username")
+	@TableField("username")
 	private String username;
 	/**
 	 * 密码
 	 */
-	@Column(name = "password")
+	@TableField("password")
 	private String password;
+
+	/**
+	 * 获取加密后的密码串
+	 *
+	 * @return
+	 */
+	public String getEncryptedPassword() {
+		return PasswordUtil.EncryptPassword(this.password);
+	}
+
 }

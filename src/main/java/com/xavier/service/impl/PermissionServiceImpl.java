@@ -19,7 +19,7 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     @Cacheable(cacheNames = {"permission"}, unless = "#result eq null")
-    public Optional<Permission> findById(String id) {
+    public Permission findById(String id) {
         return this.permissionDao.findById(id);
     }
 }

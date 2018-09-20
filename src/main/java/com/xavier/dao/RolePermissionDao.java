@@ -1,8 +1,11 @@
 package com.xavier.dao;
 
 
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.xavier.bean.RolePermission;
-import org.springframework.data.repository.CrudRepository;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -11,12 +14,15 @@ import java.util.List;
  *
  * @author NewGr8Player
  */
-public interface RolePermissionDao extends CrudRepository<RolePermission, String> {
-    /**
-     * 根据roleId查找
-     *
-     * @param roleId
-     * @return
-     */
-    List<RolePermission> findByRoleId(String roleId);
+@Mapper
+public interface RolePermissionDao extends BaseMapper<RolePermission> {
+
+	/**
+	 * 根据roleId查找
+	 *
+	 * @param roleId
+	 * @return
+	 */
+	@Select("SELECT * FROM sys_role_permission WHERE roleId=#{roleId}")
+	List<RolePermission> findByRoleId(@Param("roleId") String roleId);
 }
