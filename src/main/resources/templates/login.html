@@ -2,20 +2,56 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>登录页</title>
-    <div th:include="/common/base::head"></div>
+    <th:block th:include="/common/base::head"></th:block>
+    <script type="text/javascript" th:src="@{/static/script/login.js}"></script>
+    <style type="text/css">
+        .login-box {
+            display: -webkit-flex; /* Safari */
+            display: flex;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            width: 20%;
+        }
+    </style>
 </head>
 <body>
-<form th:action="@{/login}" th:method="post">
-    <input type="text" name="username" placeholder="用户" required="required"/>
-    <input type="password" name="password" placeholder="密码" required="required"/>
-    <div class="submit-w3l">
-        <input type="submit" value="登录">
+<div class="layui-container">
+    <input id="message" type="hidden" th:value="${message}">
+    <div class="login-box">
+        <fieldset class="layui-elem-field">
+            <legend>系统基础开发框架</legend>
+            <div class="layui-field-box">
+                <form id="login" class="layui-form" th:action="@{/login}" th:method="post">
+                    <!-- 用户名 -->
+                    <div class="layui-form-item">
+                        <div class="layui-form-mid layui-word-aux">
+                            <i class="layui-icon layui-icon-username" style="font-size: 15px; color: #393D49;"></i>
+                        </div>
+                        <div class="layui-input-inline">
+                            <input type="text" name="username" autocomplete="off" placeholder="请输入用户名" class="layui-input"/>
+                        </div>
+                    </div>
+                    <!-- 密码 -->
+                    <div class="layui-form-item">
+                        <div class="layui-form-mid layui-word-aux">
+                            <i class="layui-icon layui-icon-password" style="font-size: 15px; color: #393D49;"></i>
+                        </div>
+                        <div class="layui-input-inline">
+                            <input type="password" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="login">登录</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
     </div>
-</form>
-<script type="text/javascript">
-    $(function(){
-        alert('2');
-    })
-</script>
+</div>
 </body>
 </html>

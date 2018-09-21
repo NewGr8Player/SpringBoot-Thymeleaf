@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="head"
-      th:with='basePath=${#httpServletRequest.getScheme()+"://"+#httpServletRequest.getServerName()+":"+#httpServletRequest.getServerPort()+#httpServletRequest.getContextPath()+"/"}'>
-    <base th:href="${basePath}"/>
-
-    <meta value="UTF-8"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/static/layui/css/layui.css}" media="all"/>
-    <script type="text/javascript" th:src="@{/static/jquery/jquery-3.3.1.min.js}"></script>
-    <script type="text/javascript" th:src="@{/static/layui/layer.js}"></script>
+<head th:fragment="head">
+    <th:block th:with='basePath=${#httpServletRequest.getScheme()+"://"+#httpServletRequest.getServerName()+":"+#httpServletRequest.getServerPort()+#httpServletRequest.getContextPath()+"/"}'>
+        <meta value="UTF-8"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/static/layui/css/layui.css}" media="all"/>
+        <script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+        <script type="text/javascript">
+            var basePath = '${basePath}';
+        </script>
+    </th:block>
 </head>
+<body>
+
+</body>
 </html>

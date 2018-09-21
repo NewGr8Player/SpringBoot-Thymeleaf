@@ -36,7 +36,6 @@ public class LoginController {
 				return modelAndView;
 			}
 		}
-		modelAndView.setViewName("login");
 		return modelAndView;
 	}
 
