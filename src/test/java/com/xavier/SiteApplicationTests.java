@@ -18,6 +18,9 @@ public class SiteApplicationTests {
     @Autowired
     private UserDao userDao;
 
+    /**
+     * 新建用户
+     */
     @Test
     @Rollback(false)
     public void addUser() {
@@ -27,6 +30,9 @@ public class SiteApplicationTests {
         userDao.insert(user);
     }
 
+    /**
+     * 更新用户信息
+     */
     @Test
     @Rollback(false)
     public void updateUser() {
@@ -37,6 +43,9 @@ public class SiteApplicationTests {
         userDao.updateById(user);
     }
 
+    /**
+     * 登陆
+     */
     @Test
     public void loginTest() {
         User user = userDao.findByUsername("admin");
