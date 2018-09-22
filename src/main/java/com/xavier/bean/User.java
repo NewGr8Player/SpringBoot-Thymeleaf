@@ -32,9 +32,4 @@ public class User extends BaseEntity {
     @TableField("password")
     private String password;
 
-    /**
-     * 密码加密使用的盐
-     */
-    @TableField("pass_salt")
-    private String passSalt;
 }
