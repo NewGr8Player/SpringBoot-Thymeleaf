@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import com.xavier.bean.base.BaseEntity;
 import com.xavier.common.util.PasswordUtil;
 import lombok.*;
+import org.apache.ibatis.annotations.Update;
 
 /**
  * 用户Bean
@@ -19,24 +20,21 @@ import lombok.*;
 @AllArgsConstructor
 public class User extends BaseEntity {
 
-	/**
-	 * 用户名
-	 */
-	@TableField("username")
-	private String username;
-	/**
-	 * 密码
-	 */
-	@TableField("password")
-	private String password;
+    /**
+     * 用户名
+     */
+    @TableField("username")
+    private String username;
 
-	/**
-	 * 获取加密后的密码串
-	 *
-	 * @return
-	 */
-	public String getEncryptedPassword() {
-		return PasswordUtil.EncryptPassword(this.password);
-	}
+    /**
+     * 密码
+     */
+    @TableField("password")
+    private String password;
 
+    /**
+     * 密码加密使用的盐
+     */
+    @TableField("pass_salt")
+    private String passSalt;
 }

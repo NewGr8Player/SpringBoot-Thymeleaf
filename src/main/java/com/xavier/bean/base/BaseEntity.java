@@ -22,5 +22,5 @@ import java.io.Serializable;
 public class BaseEntity implements Serializable {
 
 	@TableId(type = IdType.UUID)
-	private String id;
+	protected String id;
 }

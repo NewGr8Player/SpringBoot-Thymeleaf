@@ -88,10 +88,9 @@ public class CustomRealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
 		UsernamePasswordToken usertoken = (UsernamePasswordToken) authenticationToken;
 		String username = usertoken.getUsername();
-		User user = userService.findByUserName(username);//去sql查询用户名是否存在,如果存在返回对象(账号和密码都有的对象)
+		User user = userService.findByUserName(username);
 		if (user != null) {
-			AuthenticationInfo info = new SimpleAuthenticationInfo(user, user.getPassword(), this.getName());
-			return info;
+			return new SimpleAuthenticationInfo(user, user.getPassword(), this.getName());
 		} else {
 			return null;
 		}

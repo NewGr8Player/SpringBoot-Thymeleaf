@@ -1,57 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>登录页</title>
     <th:block th:include="/common/base::head"></th:block>
     <script type="text/javascript" th:src="@{/static/script/login.js}"></script>
-    <style type="text/css">
-        .login-box {
-            display: -webkit-flex; /* Safari */
-            display: flex;
-            -webkit-align-items: center;
-            align-items: center;
-            -webkit-justify-content: center;
-            justify-content: center;
-            width: 20%;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/login.css}"/>
 </head>
 <body>
-<div class="layui-container">
+<div class="login-main">
     <input id="message" type="hidden" th:value="${message}">
-    <div class="login-box">
-        <fieldset class="layui-elem-field">
-            <legend>系统基础开发框架</legend>
-            <div class="layui-field-box">
-                <form id="login" class="layui-form" th:action="@{/login}" th:method="post">
-                    <!-- 用户名 -->
-                    <div class="layui-form-item">
-                        <div class="layui-form-mid layui-word-aux">
-                            <i class="layui-icon layui-icon-username" style="font-size: 15px; color: #393D49;"></i>
-                        </div>
-                        <div class="layui-input-inline">
-                            <input type="text" name="username" autocomplete="off" placeholder="请输入用户名" class="layui-input"/>
-                        </div>
-                    </div>
-                    <!-- 密码 -->
-                    <div class="layui-form-item">
-                        <div class="layui-form-mid layui-word-aux">
-                            <i class="layui-icon layui-icon-password" style="font-size: 15px; color: #393D49;"></i>
-                        </div>
-                        <div class="layui-input-inline">
-                            <input type="password" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <div class="layui-input-block">
-                            <button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="login">登录</button>
-                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </fieldset>
-    </div>
+    <header class="layui-elip">系统登录</header>
+    <form id="loginForm" class="layui-form" th:action="@{/login}" th:method="post">
+        <div class="layui-input-inline">
+            <input type="text" name="username" required lay-verify="required" placeholder="用户名" autocomplete="off"
+                   class="layui-input">
+        </div>
+        <div class="layui-input-inline">
+            <input type="password" name="password" required lay-verify="required" placeholder="密码" autocomplete="off"
+                   class="layui-input">
+        </div>
+        <div class="layui-input-inline login-btn">
+            <button lay-submit lay-filter="login" class="layui-btn layui-btn-normal">登录</button>
+        </div>
+        <hr/>
+        <div class="layui-input-inline">
+            <i id="qqLogin" class="layui-icon layui-icon-login-qq" style="font-size: 30px; color: #1E9FFF;"></i>
+            <i id="wechatLogin" class="layui-icon layui-icon-login-wechat" style="font-size: 30px; color: #00FF00;"></i>
+        </div>
+        <p>
+            <a th:href="register.html" class="fl">立即注册</a><a href="javascript:;" class="fr">忘记密码？</a>
+        </p>
+    </form>
 </div>
 </body>
 </html>

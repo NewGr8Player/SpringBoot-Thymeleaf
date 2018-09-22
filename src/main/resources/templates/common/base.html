@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head">
     <th:block th:with='basePath=${#httpServletRequest.getScheme()+"://"+#httpServletRequest.getServerName()+":"+#httpServletRequest.getServerPort()+#httpServletRequest.getContextPath()+"/"}'>
+        <title>系统名称</title>
         <meta value="UTF-8"/>
         <link rel="stylesheet" type="text/css" th:href="@{/static/layui/css/layui.css}" media="all"/>
         <script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>

@@ -5,6 +5,7 @@ import com.xavier.bean.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 /**
  * 用户Dao
@@ -22,4 +23,8 @@ public interface UserDao extends BaseMapper<User> {
 	 */
 	@Select("SELECT * FROM sys_user WHERE username = #{username} LIMIT 1")
 	User findByUsername(@Param("username") String username);
+
+	@Override
+	@Update("UPDATE sys_user SET username = #{user.username},password=#{user.password} WHERE id = #{user.id}")
+	Integer updateById(@Param("user")User user);
 }
