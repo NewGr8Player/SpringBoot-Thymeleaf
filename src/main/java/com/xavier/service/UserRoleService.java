@@ -1,6 +1,7 @@
 package com.xavier.service;
 
 import com.xavier.bean.UserRole;
+import com.xavier.common.service.BaseService;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  *
  * @author NewGr8Player
  */
-public interface UserRoleService {
+public interface UserRoleService extends BaseService<UserRole> {
 
     /**
      * 根据用户Id查找角色

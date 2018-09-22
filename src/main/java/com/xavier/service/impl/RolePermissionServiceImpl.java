@@ -2,6 +2,7 @@ package com.xavier.service.impl;
 
 
 import com.xavier.bean.RolePermission;
+import com.xavier.common.service.impl.BaseServiceImpl;
 import com.xavier.dao.RolePermissionDao;
 import com.xavier.service.RolePermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +14,11 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
-public class RolePermissionServiceImpl implements RolePermissionService {
-
-    @Autowired
-    private RolePermissionDao rolePermissionDao;
+public class RolePermissionServiceImpl extends BaseServiceImpl<RolePermissionDao, RolePermission> implements RolePermissionService {
 
     @Override
     @Cacheable(cacheNames = {"rolePermission"}, unless = "#result eq null")
-    public List<RolePermission> findByRoleId(String roleId){
-        return this.rolePermissionDao.findByRoleId(roleId);
+    public List<RolePermission> findByRoleId(String roleId) {
+        return dao.findByRoleId(roleId);
     }
 }

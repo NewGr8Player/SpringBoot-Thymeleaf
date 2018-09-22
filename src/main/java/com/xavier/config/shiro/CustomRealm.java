@@ -60,13 +60,13 @@ public class CustomRealm extends AuthorizingRealm {
 			List<UserRole> userRoleList = this.userRoleService.findByUserId(user.getId());
 			for (UserRole userRole : userRoleList) {
 				/* 角色 */
-				Role role = this.roleService.findById(userRole.getRoleId());
+				Role role = this.roleService.selectById(userRole.getRoleId());
 				if (null != role) {
 					simpleAuthorizationInfo.addRole(role.getRoleName());
 					List<RolePermission> rolePermissionList = this.rolePermissionService.findByRoleId(role.getId());
 					for (RolePermission rolePermission : rolePermissionList) {
 						/* 权限 */
-						Permission permission = this.permissionService.findById(rolePermission.getId());
+						Permission permission = this.permissionService.selectById(rolePermission.getId());
 						if (null != permission) {
 							simpleAuthorizationInfo.addStringPermission(permission.getPermissionName());
 						}

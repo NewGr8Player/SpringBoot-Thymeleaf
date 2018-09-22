@@ -1,6 +1,7 @@
 package com.xavier.service.impl;
 
 import com.xavier.bean.Role;
+import com.xavier.common.service.impl.BaseServiceImpl;
 import com.xavier.dao.RoleDao;
 import com.xavier.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +13,11 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-public class RoleServiceImpl implements RoleService {
-
-    @Autowired
-    private RoleDao roleDao;
+public class RoleServiceImpl extends BaseServiceImpl<RoleDao, Role> implements RoleService {
 
     @Override
     @Cacheable(cacheNames = {"role"}, unless = "#result eq null")
-    public Role findById(String id) {
-        return this.roleDao.findById(id);
+    public Role selectById(String id) {
+        return this.dao.findById(id);
     }
 }

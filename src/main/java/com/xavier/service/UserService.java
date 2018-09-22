@@ -1,8 +1,9 @@
 package com.xavier.service;
 
 import com.xavier.bean.User;
+import com.xavier.common.service.BaseService;
 
-public interface UserService {
+public interface UserService extends BaseService<User> {
 
 	/**
 	 * 根据用户名查找

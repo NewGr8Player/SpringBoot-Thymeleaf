@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<!-- 底部固定区域 -->
 <head th:fragment="head">
-    <th:block th:with='basePath=${#httpServletRequest.getScheme()+"://"+#httpServletRequest.getServerName()+":"+#httpServletRequest.getServerPort()+#httpServletRequest.getContextPath()+"/"}'>
+    <th:block
+            th:with='basePath=${#httpServletRequest.getScheme()+"://"+#httpServletRequest.getServerName()+":"+#httpServletRequest.getServerPort()+#httpServletRequest.getContextPath()+"/"}'>
         <title>系统名称</title>
         <meta value="UTF-8"/>
         <link rel="stylesheet" type="text/css" th:href="@{/static/layui/css/layui.css}" media="all"/>
@@ -12,6 +14,10 @@
     </th:block>
 </head>
 <body>
-
+<th:block th:fragment="foot">
+    <div class="layui-footer">
+        © <a href="https://NewGr8Player.github.io">NewGr8Player.github.io</a> - 版权信息
+    </div>
+</th:block>
 </body>
 </html>

@@ -1,26 +1,20 @@
 package com.xavier.service.impl;
 
 import com.xavier.bean.User;
+import com.xavier.common.service.impl.BaseServiceImpl;
 import com.xavier.dao.UserDao;
 import com.xavier.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
 @Transactional(readOnly = true)
-public class UserServiceImpl implements UserService {
-
-    @Autowired
-    private UserDao userDao;
+public class UserServiceImpl extends BaseServiceImpl<UserDao, User> implements UserService {
 
     @Override
     @Cacheable(cacheNames = {"user"}, unless = "#result eq null")
     public User findByUserName(String username) {
-        return this.userDao.findByUsername(username);
+        return this.dao.findByUsername(username);
     }
 }

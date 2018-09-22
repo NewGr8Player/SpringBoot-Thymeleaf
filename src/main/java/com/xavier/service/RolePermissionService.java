@@ -2,6 +2,7 @@ package com.xavier.service;
 
 
 import com.xavier.bean.RolePermission;
+import com.xavier.common.service.BaseService;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  *
  * @author NewGr8Player
  */
-public interface RolePermissionService {
+public interface RolePermissionService extends BaseService<RolePermission> {
 
     /**
      * 根据roleId查找

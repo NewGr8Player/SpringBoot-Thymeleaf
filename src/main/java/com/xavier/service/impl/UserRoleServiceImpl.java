@@ -1,6 +1,8 @@
 package com.xavier.service.impl;
 
 import com.xavier.bean.UserRole;
+import com.xavier.common.service.impl.BaseServiceImpl;
+import com.xavier.dao.UserRoleDao;
 import com.xavier.service.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -11,14 +13,11 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
-public class UserRoleServiceImpl implements UserRoleService {
-
-    @Autowired
-    private UserRoleService userRoleService;
+public class UserRoleServiceImpl extends BaseServiceImpl<UserRoleDao,UserRole> implements UserRoleService {
 
     @Override
     @Cacheable(cacheNames = {"userRole"}, unless = "#result eq null")
     public List<UserRole> findByUserId(String userId){
-        return userRoleService.findByUserId(userId);
+        return dao.findByUserId(userId);
     }
 }

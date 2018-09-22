@@ -1,6 +1,7 @@
 package com.xavier.service.impl;
 
 import com.xavier.bean.Permission;
+import com.xavier.common.service.impl.BaseServiceImpl;
 import com.xavier.dao.PermissionDao;
 import com.xavier.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +13,11 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-public class PermissionServiceImpl implements PermissionService {
-
-    @Autowired
-    private PermissionDao permissionDao;
+public class PermissionServiceImpl extends BaseServiceImpl<PermissionDao, Permission> implements PermissionService {
 
     @Override
     @Cacheable(cacheNames = {"permission"}, unless = "#result eq null")
-    public Permission findById(String id) {
-        return this.permissionDao.findById(id);
+    public Permission selectById(String id) {
+        return dao.findById(id);
     }
 }
