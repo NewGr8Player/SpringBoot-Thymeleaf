@@ -21,9 +21,21 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Permission extends BaseEntity {
 
-	/**
-	 * 权限名称
-	 */
-	@TableField(value = "permission_name")
-	private String permissionName;
+    /**
+     * 权限名称
+     */
+    @TableField("permission_name")
+    private String permissionName;
+
+    /**
+     * 权限编码
+     */
+    @TableField("permission_code")
+    private String permissionCode;
+
+    /**
+     * 菜单Id
+     */
+    @TableField("menu_id")
+    private String menuId;
 }

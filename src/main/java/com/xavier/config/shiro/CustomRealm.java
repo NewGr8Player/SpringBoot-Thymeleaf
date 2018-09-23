@@ -8,6 +8,7 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
@@ -68,7 +69,7 @@ public class CustomRealm extends AuthorizingRealm {
 						/* 权限 */
 						Permission permission = this.permissionService.selectById(rolePermission.getId());
 						if (null != permission) {
-							simpleAuthorizationInfo.addStringPermission(permission.getPermissionName());
+							simpleAuthorizationInfo.addStringPermission(permission.getPermissionCode());
 						}
 					}
 				}

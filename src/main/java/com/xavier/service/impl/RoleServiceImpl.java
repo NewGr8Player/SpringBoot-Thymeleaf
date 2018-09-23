@@ -16,7 +16,7 @@ import java.util.Optional;
 public class RoleServiceImpl extends BaseServiceImpl<RoleDao, Role> implements RoleService {
 
     @Override
-    @Cacheable(cacheNames = {"role"}, unless = "#result eq null")
+    @Cacheable(cacheNames = {"role"})
     public Role selectById(String id) {
         return this.dao.findById(id);
     }

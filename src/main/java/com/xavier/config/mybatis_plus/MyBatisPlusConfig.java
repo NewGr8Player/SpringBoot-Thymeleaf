@@ -119,7 +119,7 @@ public class MyBatisPlusConfig {
 		//configuration.setDefaultScriptingLanguage(MybatisXMLLanguageDriver.class);
 		configuration.setJdbcTypeForNull(JdbcType.NULL);
 		configuration.setMapUnderscoreToCamelCase(true);
-		configuration.setCacheEnabled(false);
+		configuration.setCacheEnabled(true);
 		sqlSessionFactory.setConfiguration(configuration);
 		sqlSessionFactory.setPlugins(new Interceptor[]{ //PerformanceInterceptor(),OptimisticLockerInterceptor()
 				paginationInterceptor() //添加分页功能

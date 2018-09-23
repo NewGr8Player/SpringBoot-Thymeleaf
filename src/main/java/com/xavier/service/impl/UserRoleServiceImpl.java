@@ -13,11 +13,11 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
-public class UserRoleServiceImpl extends BaseServiceImpl<UserRoleDao,UserRole> implements UserRoleService {
+public class UserRoleServiceImpl extends BaseServiceImpl<UserRoleDao, UserRole> implements UserRoleService {
 
     @Override
-    @Cacheable(cacheNames = {"userRole"}, unless = "#result eq null")
-    public List<UserRole> findByUserId(String userId){
+    @Cacheable(cacheNames = {"userRole"})
+    public List<UserRole> findByUserId(String userId) {
         return dao.findByUserId(userId);
     }
 }

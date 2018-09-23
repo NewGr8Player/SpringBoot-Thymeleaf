@@ -2,7 +2,6 @@ package com.xavier.common.service;
 
 import com.xavier.bean.base.BaseEntity;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**

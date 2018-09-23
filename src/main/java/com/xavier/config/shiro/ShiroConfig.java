@@ -50,7 +50,7 @@ public class ShiroConfig {
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         // 设置realm.
-        securityManager.setRealm(myShiroRealm());
+        securityManager.setRealm(customRealm());
         return securityManager;
     }
 
@@ -60,7 +60,7 @@ public class ShiroConfig {
      * @return
      */
     @Bean
-    public CustomRealm myShiroRealm() {
+    public CustomRealm customRealm() {
         return new CustomRealm();
     }
 }
