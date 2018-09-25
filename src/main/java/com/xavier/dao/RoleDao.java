@@ -13,14 +13,4 @@ import org.apache.ibatis.annotations.Select;
  */
 @Mapper
 public interface RoleDao extends BaseMapper<Role> {
-
-	/**
-	 * 根据Id查找角色
-	 *
-	 * @param id
-	 * @return
-	 */
-	@Select("SELECT * FROM sys_role WHERE id = #{userId}")
-	Role findById(@Param("id") String id);
-
 }

@@ -8,7 +8,6 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
@@ -51,10 +50,8 @@ public class CustomRealm extends AuthorizingRealm {
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-		/* 获取登录用户名 */
-		String userName = (String) principalCollection.getPrimaryPrincipal();
 		/* 查询用户名称 */
-		User user = this.userService.findByUserName(userName);
+		User user = (User) principalCollection.getPrimaryPrincipal();
 		/* 添加角色和权限 */
 		SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
 		if (null != user) {

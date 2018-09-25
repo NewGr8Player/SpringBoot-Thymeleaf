@@ -110,7 +110,7 @@ public class LoginController {
     @RequiresPermissions({"sys:root:index"})
     @RequestMapping(path = "/index", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView indexPage(ModelAndView modelAndView) {
-        User user = (User) SecurityUtils.getSubject();
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
         List<UserRole> userRoleList = userRoleService.findByUserId(user.getId());
         List<Role> roleList = roleService.selectBatchIds(
                 userRoleList.stream().map(usr -> usr.getRoleId()).collect(Collectors.toList()));

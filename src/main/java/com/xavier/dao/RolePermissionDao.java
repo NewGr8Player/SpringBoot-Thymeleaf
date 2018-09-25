@@ -23,6 +23,6 @@ public interface RolePermissionDao extends BaseMapper<RolePermission> {
 	 * @param roleId
 	 * @return
 	 */
-	@Select("SELECT * FROM sys_role_permission WHERE roleId=#{roleId}")
+	@Select("SELECT * FROM sys_role_permission WHERE role_id=#{roleId}")
 	List<RolePermission> findByRoleId(@Param("roleId") String roleId);
 }

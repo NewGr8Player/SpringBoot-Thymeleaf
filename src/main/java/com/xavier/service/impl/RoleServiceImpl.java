@@ -18,6 +18,6 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleDao, Role> implements R
     @Override
     @Cacheable(cacheNames = {"role"})
     public Role selectById(String id) {
-        return this.dao.findById(id);
+        return this.dao.selectById(id);
     }
 }
