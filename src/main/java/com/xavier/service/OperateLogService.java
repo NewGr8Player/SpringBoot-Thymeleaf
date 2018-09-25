@@ -4,7 +4,7 @@ import com.xavier.bean.OperateLog;
 import com.xavier.common.service.BaseService;
 
 /**
- * 操作日志
+ * 操作日志Service
  *
  * @author NewGr8Player
  */

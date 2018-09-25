@@ -32,4 +32,9 @@ public class User extends BaseEntity {
     @TableField("password")
     private String password;
 
+    /**
+     * 昵称
+     */
+    @TableField("nickname")
+    private String nickname;
 }

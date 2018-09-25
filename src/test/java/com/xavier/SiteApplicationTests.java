@@ -3,6 +3,7 @@ package com.xavier;
 import com.xavier.bean.User;
 import com.xavier.common.util.PasswordUtil;
 import com.xavier.dao.UserDao;
+import com.xavier.service.RolePermissionService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Arrays;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -50,5 +53,19 @@ public class SiteApplicationTests {
     public void loginTest() {
         User user = userDao.findByUsername("admin");
         Assert.assertTrue(PasswordUtil.passwordValidator("0", user.getPassword()));
+    }
+
+
+    @Autowired
+    private RolePermissionService rolePermissionService;
+
+    /**
+     * 自定义批量查询
+     */
+    @Test
+    public void custombatchQueryTest(){
+        rolePermissionService.findByBatchRoleIds(Arrays.asList("1","2")).stream().forEach(
+                n -> System.out.println(n)
+        );
     }
 }

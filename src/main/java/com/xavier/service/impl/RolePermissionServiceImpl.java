@@ -21,4 +21,9 @@ public class RolePermissionServiceImpl extends BaseServiceImpl<RolePermissionDao
     public List<RolePermission> findByRoleId(String roleId) {
         return dao.findByRoleId(roleId);
     }
+
+    @Override
+    public List<RolePermission> findByBatchRoleIds(List<String> roleIdList) {
+        return dao.findByBatchRoleIds(roleIdList);
+    }
 }
