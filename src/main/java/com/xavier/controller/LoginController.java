@@ -24,117 +24,119 @@ import java.util.stream.Collectors;
 @RequestMapping("/")
 public class LoginController {
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private RoleService roleService;
-    @Autowired
-    private MenuService menuService;
-    @Autowired
-    private UserRoleService userRoleService;
-    @Autowired
-    private PermissionService permissionService;
-    @Autowired
-    private RolePermissionService rolePermissionService;
-    @Autowired
-    private PermissionMenuService permissionMenuService;
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private RoleService roleService;
+	@Autowired
+	private MenuService menuService;
+	@Autowired
+	private UserRoleService userRoleService;
+	@Autowired
+	private PermissionService permissionService;
+	@Autowired
+	private RolePermissionService rolePermissionService;
+	@Autowired
+	private PermissionMenuService permissionMenuService;
 
-    /**
-     * 跳转登陆页面
-     *
-     * @return
-     */
-    @GetMapping("/login")
-    public ModelAndView loginPage(ModelAndView modelAndView) {
-        modelAndView.setViewName("login");
-        return modelAndView;
-    }
+	/**
+	 * 跳转登陆页面
+	 *
+	 * @return
+	 */
+	@GetMapping("/login")
+	public ModelAndView loginPage(ModelAndView modelAndView) {
+		modelAndView.setViewName("login");
+		return modelAndView;
+	}
 
-    /**
-     * 登陆方法
-     *
-     * @param user
-     * @return
-     */
-    @PostMapping("/login")
-    public ModelAndView loginMethod(ModelAndView modelAndView, User user) {
-        if (null != user && StringUtils.isNotBlank(user.getUsername()) && StringUtils.isNotBlank(user.getPassword())) {
-            try {
-                User dbUser = userService.findByUserName(user.getUsername());
-                if (null == dbUser) {
-                    modelAndView.setViewName("login");
-                    modelAndView.addObject("message", "用户不存在!");
-                } else {
-                    if (PasswordUtil.passwordValidator(user.getPassword(), dbUser.getPassword())) {
-                        Subject subject = SecurityUtils.getSubject();
-                        subject.login(new UsernamePasswordToken(dbUser.getUsername(), dbUser.getPassword()));
-                        modelAndView.setViewName("redirect:/index");
-                    } else {
-                        modelAndView.setViewName("login");
-                        modelAndView.addObject("message", "密码错误！");
-                    }
-                }
-            } catch (AuthenticationException authException) {
-                modelAndView.setViewName("login");
-                modelAndView.addObject("message", "用户认证失败!");
-            } catch (Exception exception) {
-                modelAndView.setViewName("login");
-                modelAndView.addObject("message", "系统内部错误，请联系管理员!");
-                exception.printStackTrace();
-            }
-        } else {
-            modelAndView.setViewName("login");
-            modelAndView.addObject("message", "请正确填写用户名与密码");
-        }
-        return modelAndView;
-    }
+	/**
+	 * 登陆方法
+	 *
+	 * @param user
+	 * @return
+	 */
+	@PostMapping("/login")
+	public ModelAndView loginMethod(ModelAndView modelAndView, User user) {
+		if (null != user && StringUtils.isNotBlank(user.getUsername()) && StringUtils.isNotBlank(user.getPassword())) {
+			try {
+				User dbUser = userService.findByUserName(user.getUsername());
+				if (null == dbUser) {
+					modelAndView.setViewName("login");
+					modelAndView.addObject("message", "用户不存在!");
+				} else {
+					if (PasswordUtil.passwordValidator(user.getPassword(), dbUser.getPassword())) {
+						Subject subject = SecurityUtils.getSubject();
+						subject.login(new UsernamePasswordToken(dbUser.getUsername(), dbUser.getPassword()));
+						modelAndView.setViewName("redirect:/index?menuCode=root");
+					} else {
+						modelAndView.setViewName("login");
+						modelAndView.addObject("message", "密码错误！");
+					}
+				}
+			} catch (AuthenticationException authException) {
+				modelAndView.setViewName("login");
+				modelAndView.addObject("message", "用户认证失败!");
+			} catch (Exception exception) {
+				modelAndView.setViewName("login");
+				modelAndView.addObject("message", "系统内部错误，请联系管理员!");
+				exception.printStackTrace();
+			}
+		} else {
+			modelAndView.setViewName("login");
+			modelAndView.addObject("message", "请正确填写用户名与密码");
+		}
+		return modelAndView;
+	}
 
-    /**
-     * 注销登录
-     *
-     * @param modelAndView
-     * @return
-     */
-    @RequestMapping(path = "/logout", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView logoutMethod(ModelAndView modelAndView) {
-        modelAndView.setViewName("login");
-        return modelAndView;
-    }
+	/**
+	 * 注销登录
+	 *
+	 * @param modelAndView
+	 * @return
+	 */
+	@RequestMapping(path = "/logout", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView logoutMethod(ModelAndView modelAndView) {
+		modelAndView.setViewName("login");
+		return modelAndView;
+	}
 
-    /**
-     * 首页
-     *
-     * @param modelAndView
-     * @return
-     */
-    @RequiresPermissions({"sys:root:index"})
-    @RequestMapping(path = "/index", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView indexPage(ModelAndView modelAndView, Menu menu) {
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
-        List<UserRole> userRoleList = userRoleService.findByUserId(user.getId());
-        List<Role> roleList = roleService.selectBatchIds(
-                userRoleList.stream().map(usr -> usr.getRoleId()).collect(Collectors.toList())
-        );
-        List<RolePermission> rolePermissionList = rolePermissionService.findByBatchRoleIds(
-                roleList.stream().map(rp -> rp.getId()).collect(Collectors.toList())
-        );
-        List<Permission> permissionList = permissionService.selectBatchIds(
-                rolePermissionList.stream().map(p -> p.getPermissionId()).collect(Collectors.toList())
-        );
-        List<PermissionMenu> permissionMenuList = permissionMenuService.findByBatchPermissionIds(
-                permissionList.stream().map(p -> p.getId()).collect(Collectors.toList())
-        );
-        List<Menu> menuList = menuService.selectBatchIds(
-                permissionMenuList.stream().map(pm -> pm.getMenuId()).collect(Collectors.toList())
-        );
-        if (null == menu) {
-            menu = new Menu();
-            menu.setMenuCode("root");
-        }
-        modelAndView.addObject("currentUser", user);
-        modelAndView.addObject("menuList", menuList);
-        modelAndView.addObject("currentMenu", menu);
-        modelAndView.setViewName("index");
-        return modelAndView;
-    }
+	/**
+	 * 首页
+	 *
+	 * @param modelAndView
+	 * @return
+	 */
+	@RequiresPermissions({"sys:root:index"})
+	@RequestMapping(path = "/index", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView indexPage(ModelAndView modelAndView, Menu menu) {
+		User user = (User) SecurityUtils.getSubject().getPrincipal();
+		List<UserRole> userRoleList = userRoleService.findByUserId(user.getId());
+		List<Role> roleList = roleService.selectBatchIds(
+				userRoleList.stream().map(usr -> usr.getRoleId()).collect(Collectors.toList())
+		);
+		List<RolePermission> rolePermissionList = rolePermissionService.findByBatchRoleIds(
+				roleList.stream().map(rp -> rp.getId()).collect(Collectors.toList())
+		);
+		List<Permission> permissionList = permissionService.selectBatchIds(
+				rolePermissionList.stream().map(p -> p.getPermissionId()).collect(Collectors.toList())
+		);
+		List<PermissionMenu> permissionMenuList = permissionMenuService.findByBatchPermissionIds(
+				permissionList.stream().map(p -> p.getId()).collect(Collectors.toList())
+		);
+		List<Menu> menuList = menuService.selectBatchIds(
+				permissionMenuList.stream().map(pm -> pm.getMenuId()).collect(Collectors.toList())
+		);
+		if (null == menu) {
+			menu = new Menu();
+		}
+		if (StringUtils.isNotBlank(menu.getMenuCode())) {
+			menu.setMenuCode("root");
+		}
+		modelAndView.addObject("currentUser", user);
+		modelAndView.addObject("menuList", menuList);
+		modelAndView.addObject("currentMenu", menu);
+		modelAndView.setViewName("index");
+		return modelAndView;
+	}
 }

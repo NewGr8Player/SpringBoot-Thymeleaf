@@ -29,17 +29,18 @@
     </div>
 
     <div class="layui-side layui-bg-black">
+        <!-- TODO 菜单采用后台构造方式处理 -->
         <div class="layui-side-scroll">
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <th:block th:each="menu:${menuList}">
                     <li th:if="${menu.menuType eq 'model' and menu.menuCode eq currentMenu.menuCode}"
                         class="layui-nav-item layui-nav-itemed">
                         <a class="" th:href="@{${menu.menuUrl}}" th:text="${menu.menuName}">所有商品</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">列表一</a></dd>
-                            <dd><a href="javascript:;">列表二</a></dd>
-                            <dd><a href="javascript:;">列表三</a></dd>
-                            <dd><a href="">超链接</a></dd>
+                        <dl class="layui-nav-child" th:each="child:${menuList}"
+                            th:if="${child.menuType eq 'model' and child.menuCode eq currentMenu.menuCode and child.parentId eq menu.id}">
+                            <dd>
+                                <a th:href="@{${child.menuUrl}}" th:text="${child.menuName}"></a>
+                            </dd>
                         </dl>
                     </li>
                 </th:block>
