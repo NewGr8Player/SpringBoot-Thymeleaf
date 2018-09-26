@@ -19,7 +19,6 @@ import java.util.List;
  *
  * @author NewGr8Player
  */
-@Order
 @Component
 public class CustomRealm extends AuthorizingRealm {
 

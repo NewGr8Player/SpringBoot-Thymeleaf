@@ -13,7 +13,6 @@ public class MyRedisSessionDao extends EnterpriseCacheSessionDAO {
 
     public MyRedisSessionDao(RedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
-
     }
 
     @Override

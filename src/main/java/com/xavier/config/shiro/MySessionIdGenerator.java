@@ -1,23 +1,17 @@
 package com.xavier.config.shiro;
 
-import java.io.Serializable;
-import java.util.StringJoiner;
-import java.util.UUID;
-
+import lombok.AllArgsConstructor;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.SessionIdGenerator;
 
+import java.io.Serializable;
+
+@AllArgsConstructor
 public class MySessionIdGenerator implements SessionIdGenerator {
-
     private String prefix;
-
-    public MySessionIdGenerator(String prefix) {
-        this.prefix = prefix;
-
-    }
 
     @Override
     public Serializable generateId(Session session) {
-        return new StringJoiner(":", prefix, session.getHost()).add(UUID.randomUUID().toString()).toString();
+        return prefix + session.getId();
     }
 }

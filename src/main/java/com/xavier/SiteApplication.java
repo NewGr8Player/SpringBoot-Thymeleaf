@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
  * SpringBoot Starter
  */
-@EnableCaching(order = 3)
+@EnableCaching
 @EnableScheduling
 @SpringBootApplication(exclude = {
         DataSourceAutoConfiguration.class
