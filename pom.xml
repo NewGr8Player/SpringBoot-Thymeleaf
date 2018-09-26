@@ -27,6 +27,7 @@
         <druid.version>1.1.10</druid.version>
         <shiro.verison>1.3.2</shiro.verison>
         <guava.version>18.0</guava.version>
+        <fastjson.version>1.2.49</fastjson.version>
         <mybatis-plus-starter.version>2.1.9</mybatis-plus-starter.version>
     </properties>
 
@@ -133,7 +134,12 @@
             <artifactId>jbcrypt</artifactId>
             <version>0.4</version>
         </dependency>
-
+        <!-- Fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
         <!-- DevTools:HotSwap -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl extends BaseServiceImpl<UserDao, User> implements UserService {
 
     @Override
-    @Cacheable(cacheNames = {"user"})
     public User findByUserName(String username) {
         return this.dao.findByUsername(username);
     }

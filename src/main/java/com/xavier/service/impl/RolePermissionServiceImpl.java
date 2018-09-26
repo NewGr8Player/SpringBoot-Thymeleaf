@@ -17,7 +17,6 @@ import java.util.List;
 public class RolePermissionServiceImpl extends BaseServiceImpl<RolePermissionDao, RolePermission> implements RolePermissionService {
 
     @Override
-    @Cacheable(cacheNames = {"rolePermission"})
     public List<RolePermission> findByRoleId(String roleId) {
         return dao.findByRoleId(roleId);
     }

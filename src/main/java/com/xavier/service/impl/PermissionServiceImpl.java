@@ -16,7 +16,6 @@ import java.util.Optional;
 public class PermissionServiceImpl extends BaseServiceImpl<PermissionDao, Permission> implements PermissionService {
 
     @Override
-    @Cacheable(cacheNames = {"permission"})
     public Permission selectById(String id) {
         return dao.findById(id);
     }

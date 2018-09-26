@@ -61,6 +61,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         ).entryTtl(Duration.ofMillis(millis));
         return redisCacheConfiguration;
     }
+
 }
 
 

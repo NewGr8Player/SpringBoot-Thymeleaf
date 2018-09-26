@@ -581,3 +581,20 @@ html body .layui-nav .layui-nav-bar {
         display: none;
     }
 }
+
+/* fast login */
+#qqLogin {
+    font-size: 30px;
+}
+
+#qqLogin:hover {
+    color: #1E9FFF;
+}
+
+#wechatLogin {
+    font-size: 30px;
+}
+
+#wechatLogin:hover {
+    color: #00FF00;
+}

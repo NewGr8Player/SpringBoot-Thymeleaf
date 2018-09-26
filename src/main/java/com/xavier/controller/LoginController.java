@@ -1,5 +1,6 @@
 package com.xavier.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.xavier.bean.*;
 import com.xavier.common.util.PasswordUtil;
 import com.xavier.service.*;
@@ -135,6 +136,7 @@ public class LoginController {
 		}
 		modelAndView.addObject("currentUser", user);
 		modelAndView.addObject("menuList", menuList);
+		modelAndView.addObject("menuListJson", JSON.toJSONString(menuList));
 		modelAndView.addObject("currentMenu", menu);
 		modelAndView.setViewName("index");
 		return modelAndView;
