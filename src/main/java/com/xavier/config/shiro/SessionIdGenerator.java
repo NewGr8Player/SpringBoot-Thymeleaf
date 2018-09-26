@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.apache.shiro.session.Session;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @AllArgsConstructor
 public class SessionIdGenerator implements org.apache.shiro.session.mgt.eis.SessionIdGenerator {
@@ -11,6 +12,6 @@ public class SessionIdGenerator implements org.apache.shiro.session.mgt.eis.Sess
 
     @Override
     public Serializable generateId(Session session) {
-        return prefix + session.getId();
+        return prefix + UUID.randomUUID().toString().replace("-", "");
     }
 }

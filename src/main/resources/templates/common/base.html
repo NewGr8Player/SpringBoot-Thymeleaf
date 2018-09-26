@@ -20,4 +20,18 @@
     </div>
 </th:block>
 </body>
+<th:block th:fragment="redirct-login">
+    <script type="text/javascript">
+        layui.use(['jquery'], function () {
+            var $ = layui.jquery;
+            var rootPath = '[[${#httpServletRequest.getScheme()+"://"+#httpServletRequest.getServerName()+":"+#httpServletRequest.getServerPort()+#httpServletRequest.getContextPath()+"/login"}]]';
+            console.log(rootPath);
+            $(function () {
+                setTimeout(function () {
+                    window.location.href = rootPath;
+                }, 2000);
+            });
+        });
+    </script>
+</th:block>
 </html>

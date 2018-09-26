@@ -160,11 +160,11 @@ public class ShiroConfig {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         RedisSessionDao redisSessionDao = new RedisSessionDao(redisTemplate);
 
-        redisSessionDao.setSessionIdGenerator(sessionIdGenerator("Cookie"));
+        redisSessionDao.setSessionIdGenerator(sessionIdGenerator("redis"));
         sessionManager.setSessionDAO(redisSessionDao);
         sessionManager.setDeleteInvalidSessions(true);
         SimpleCookie cookie = new SimpleCookie();
-        cookie.setName("Cookie");
+        cookie.setName("redis");
         sessionManager.setSessionIdCookie(cookie);
         sessionManager.setSessionIdCookieEnabled(true);
         return sessionManager;
