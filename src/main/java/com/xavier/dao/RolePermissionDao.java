@@ -17,12 +17,28 @@ import java.util.List;
 @Mapper
 public interface RolePermissionDao extends BaseMapper<RolePermission> {
 
-	/**
-	 * 根据roleId查找
-	 *
-	 * @param roleId
-	 * @return
-	 */
-	@Select("SELECT * FROM sys_role_permission WHERE role_id=#{roleId}")
-	List<RolePermission> findByRoleId(@Param("roleId") String roleId);
+    /**
+     * 根据roleId查找
+     *
+     * @param roleId
+     * @return
+     */
+    @Select("SELECT * FROM sys_role_permission WHERE role_id=#{roleId}")
+    List<RolePermission> findByRoleId(@Param("roleId") String roleId);
+
+    /**
+     * 根据roleIdList批量查找
+     *
+     * @param roleIdList
+     * @return
+     */
+    @Select("<script>"
+            + "SELECT * FROM sys_role_permission WHERE role_id IN"
+            + " <foreach item='item' index='index' collection='roleIdList' open='(' separator=',' close=')'>"
+            + " #{item}"
+            + " </foreach>"
+            + "</script>")
+    List<RolePermission> findByBatchRoleIds(@Param("roleIdList") List<String> roleIdList);
+
+
 }

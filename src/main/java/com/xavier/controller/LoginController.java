@@ -1,9 +1,6 @@
 package com.xavier.controller;
 
-import com.xavier.bean.Permission;
-import com.xavier.bean.Role;
-import com.xavier.bean.User;
-import com.xavier.bean.UserRole;
+import com.xavier.bean.*;
 import com.xavier.common.util.PasswordUtil;
 import com.xavier.service.*;
 import org.apache.commons.lang3.StringUtils;
@@ -29,15 +26,18 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
-
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private MenuService menuService;
     @Autowired
     private UserRoleService userRoleService;
     @Autowired
     private PermissionService permissionService;
     @Autowired
     private RolePermissionService rolePermissionService;
+    @Autowired
+    private PermissionMenuService permissionMenuService;
 
     /**
      * 跳转登陆页面
@@ -109,12 +109,31 @@ public class LoginController {
      */
     @RequiresPermissions({"sys:root:index"})
     @RequestMapping(path = "/index", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView indexPage(ModelAndView modelAndView) {
+    public ModelAndView indexPage(ModelAndView modelAndView, Menu menu) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         List<UserRole> userRoleList = userRoleService.findByUserId(user.getId());
         List<Role> roleList = roleService.selectBatchIds(
-                userRoleList.stream().map(usr -> usr.getRoleId()).collect(Collectors.toList()));
-
+                userRoleList.stream().map(usr -> usr.getRoleId()).collect(Collectors.toList())
+        );
+        List<RolePermission> rolePermissionList = rolePermissionService.findByBatchRoleIds(
+                roleList.stream().map(rp -> rp.getId()).collect(Collectors.toList())
+        );
+        List<Permission> permissionList = permissionService.selectBatchIds(
+                rolePermissionList.stream().map(p -> p.getPermissionId()).collect(Collectors.toList())
+        );
+        List<PermissionMenu> permissionMenuList = permissionMenuService.findByBatchPermissionIds(
+                permissionList.stream().map(p -> p.getId()).collect(Collectors.toList())
+        );
+        List<Menu> menuList = menuService.selectBatchIds(
+                permissionMenuList.stream().map(pm -> pm.getMenuId()).collect(Collectors.toList())
+        );
+        if (null == menu) {
+            menu = new Menu();
+            menu.setMenuCode("root");
+        }
+        modelAndView.addObject("currentUser", user);
+        modelAndView.addObject("menuList", menuList);
+        modelAndView.addObject("currentMenu", menu);
         modelAndView.setViewName("index");
         return modelAndView;
     }

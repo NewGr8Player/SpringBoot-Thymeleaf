@@ -17,31 +17,37 @@ public abstract class BaseServiceImpl<D extends BaseMapper, T extends BaseEntity
     protected D dao;
 
     @Override
+    @Transactional
     public Integer insert(BaseEntity entity) {
         return dao.insert(entity);
     }
 
     @Override
+    @Transactional
     public Integer insertAllColumn(BaseEntity entity) {
         return dao.insertAllColumn(entity);
     }
 
     @Override
+    @Transactional
     public Integer deleteById(String id) {
         return dao.deleteById(id);
     }
 
     @Override
+    @Transactional
     public Integer deleteBatchIds(List<String> idList) {
         return dao.deleteBatchIds(idList);
     }
 
     @Override
+    @Transactional
     public Integer updateById(BaseEntity entity) {
         return dao.updateById(entity);
     }
 
     @Override
+    @Transactional
     public Integer updateAllColumnById(BaseEntity entity) {
         return dao.updateAllColumnById(entity);
     }

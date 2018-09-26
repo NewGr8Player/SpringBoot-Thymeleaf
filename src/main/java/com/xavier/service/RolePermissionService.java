@@ -20,4 +20,11 @@ public interface RolePermissionService extends BaseService<RolePermission> {
      * @return
      */
     List<RolePermission> findByRoleId(String roleId);
+
+    /**
+     * 根据roleIdList批量查找
+     * @param roleIdList
+     * @return
+     */
+    List<RolePermission> findByBatchRoleIds(List<String> roleIdList);
 }

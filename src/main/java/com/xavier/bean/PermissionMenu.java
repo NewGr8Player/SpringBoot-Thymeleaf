@@ -19,17 +19,17 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Permission extends BaseEntity {
+public class PermissionMenu extends BaseEntity {
 
     /**
-     * 权限名称
+     * 权限Id
      */
-    @TableField("permission_name")
-    private String permissionName;
+    @TableField("permission_id")
+    private String permissionId;
 
     /**
-     * 权限编码
+     * 菜单
      */
-    @TableField("permission_code")
-    private String permissionCode;
+    @TableField("menu_id")
+    private String menuId;
 }
