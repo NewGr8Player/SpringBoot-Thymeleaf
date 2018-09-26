@@ -19,4 +19,10 @@ public class UserRoleServiceImpl extends BaseServiceImpl<UserRoleDao, UserRole> 
     public List<UserRole> findByUserId(String userId) {
         return dao.findByUserId(userId);
     }
+
+    @Override
+    @Cacheable(cacheNames = "userRoleList")
+    public List<UserRole> selectBatchIds(List<String> idList) {
+        return super.selectBatchIds(idList);
+    }
 }

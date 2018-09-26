@@ -9,6 +9,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,5 +19,11 @@ public class PermissionServiceImpl extends BaseServiceImpl<PermissionDao, Permis
     @Override
     public Permission selectById(String id) {
         return dao.findById(id);
+    }
+
+    @Override
+    @Cacheable(cacheNames = "permissionList")
+    public List<Permission> selectBatchIds(List<String> idList) {
+        return super.selectBatchIds(idList);
     }
 }

@@ -17,7 +17,6 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuDao, Menu> implements M
     @Override
     @Cacheable(cacheNames = "menuList")
     public List<Menu> selectBatchIds(List<String> idList) {
-        System.out.println("\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=\n=");
         return super.selectBatchIds(idList);
     }
 

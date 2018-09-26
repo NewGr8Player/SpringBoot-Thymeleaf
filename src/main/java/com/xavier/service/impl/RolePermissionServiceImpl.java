@@ -22,6 +22,7 @@ public class RolePermissionServiceImpl extends BaseServiceImpl<RolePermissionDao
     }
 
     @Override
+    @Cacheable(cacheNames = "rolePermissionList")
     public List<RolePermission> findByBatchRoleIds(List<String> roleIdList) {
         return dao.findByBatchRoleIds(roleIdList);
     }
