@@ -1,6 +1,6 @@
 package com.xavier.config.shiro;
 
-import com.xavier.config.redis.MyRedisSessionDao;
+import com.xavier.config.redis.RedisSessionDao;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -158,7 +158,7 @@ public class ShiroConfig {
     @DependsOn(value = "lifecycleBeanPostProcessor")
     public DefaultWebSessionManager sessionManager(RedisTemplate redisTemplate) {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
-        MyRedisSessionDao redisSessionDao = new MyRedisSessionDao(redisTemplate);
+        RedisSessionDao redisSessionDao = new RedisSessionDao(redisTemplate);
 
         redisSessionDao.setSessionIdGenerator(sessionIdGenerator("Cookie"));
         sessionManager.setSessionDAO(redisSessionDao);
@@ -176,8 +176,8 @@ public class ShiroConfig {
      * @param name
      * @return
      */
-    public MySessionIdGenerator sessionIdGenerator(String name) {
-        return new MySessionIdGenerator(name);
+    public SessionIdGenerator sessionIdGenerator(String name) {
+        return new SessionIdGenerator(name);
     }
 
 }

@@ -7,11 +7,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import java.io.*;
 
-public class MyRedisSessionDao extends EnterpriseCacheSessionDAO {
+public class RedisSessionDao extends EnterpriseCacheSessionDAO {
 
     private RedisTemplate<byte[], byte[]> redisTemplate;
 
-    public MyRedisSessionDao(RedisTemplate redisTemplate) {
+    public RedisSessionDao(RedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
