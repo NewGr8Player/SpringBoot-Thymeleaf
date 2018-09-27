@@ -35,26 +35,27 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuDao, Menu> implements M
 		if (StringUtils.isNotBlank(menu.getMenuCode())) { /* menu_code */
 			entityWrapper.eq("menu_code", menu.getMenuCode());
 		}
-		entityWrapper.in("id",ids);
-		List<Menu> menuList =  dao.selectList(entityWrapper);
-		Map<String,List<Menu>> childMap = new HashMap<>();
+		entityWrapper.in("id", ids);
+		entityWrapper.orderBy("parent_id,menu_order");
+		List<Menu> menuList = dao.selectList(entityWrapper);
+		Map<String, List<Menu>> childMap = new HashMap<>();
 		List<TreeNode> treeNodeList = new ArrayList<>();
-		for(Menu it:menuList){
-			if ("0".equals(it.getParentId())){
+		for (Menu it : menuList) {
+			if ("0".equals(it.getParentId())) {
 				treeNodeList.add(new TreeNode(it));
 			} else {
-				if(childMap.containsKey(it.getParentId())){
+				if (childMap.containsKey(it.getParentId())) {
 					List<Menu> childList = childMap.get(it.getParentId());
 					childList.add(it);
-					childMap.put(it.getParentId(),childList);
+					childMap.put(it.getParentId(), childList);
 				} else {
 					childMap.put(it.getParentId(), Arrays.asList(it));
 				}
 			}
 		}
-		for (TreeNode<Menu> treeNode : treeNodeList){
+		for (TreeNode<Menu> treeNode : treeNodeList) {
 			String parentId = treeNode.getCurrent().getId();
-			if(childMap.containsKey(parentId)){
+			if (childMap.containsKey(parentId)) {
 				treeNode.setChild(childMap.get(parentId));
 			}
 		}

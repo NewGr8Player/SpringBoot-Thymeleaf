@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
-import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 
 import java.time.Duration;
@@ -20,15 +19,13 @@ public class RedisConfig {
 	@Bean
 	public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
 
-		RedisCacheConfiguration defaultCacheConfig = RedisCacheConfiguration
-				.defaultCacheConfig()
-				.entryTtl(Duration.ofSeconds(EXPIRE_TIME))
-				.disableCachingNullValues();
 
-		RedisCacheManager cacheManager = RedisCacheManager.builder(
-				RedisCacheWriter.lockingRedisCacheWriter(redisConnectionFactory)
-		).cacheDefaults(defaultCacheConfig)
-				.transactionAware()
+		RedisCacheManager cacheManager = RedisCacheManager.builder(redisConnectionFactory)
+				.cacheDefaults(
+						RedisCacheConfiguration
+								.defaultCacheConfig()
+								.entryTtl(Duration.ofSeconds(EXPIRE_TIME))
+				)
 				.build();
 
 		return cacheManager;
