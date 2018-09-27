@@ -6,11 +6,12 @@
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
+    <input id="currentMenuCode" type="hidden" th:value="${currentMenu.menuCode}">
     <div class="layui-header">
         <div class="layui-logo">系统后台</div>
         <ul class="layui-nav layui-layout-left">
             <li th:each="menu:${menuList}" class="layui-nav-item">
-                <a th:if="${menu.menuType eq 'project'}" th:href="@{${menu.menuUrl + '?menuCode=' + menu.menuCode}}"
+                <a th:if="${menu.menuType eq 'channel'}" th:href="@{${menu.menuUrl + '?menuCode=' + menu.menuCode}}"
                    th:text="${menu.menuName}"></a>
             </li>
         </ul>
@@ -29,21 +30,8 @@
     </div>
 
     <div class="layui-side layui-bg-black">
-        <!-- TODO 菜单采用后台构造方式处理 -->
         <div class="layui-side-scroll">
-            <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                <th:block th:each="menu:${menuList}">
-                    <li th:if="${menu.menuType eq 'model' and menu.menuCode eq currentMenu.menuCode}"
-                        class="layui-nav-item layui-nav-itemed">
-                        <a class="" th:href="@{${menu.menuUrl}}" th:text="${menu.menuName}">所有商品</a>
-                        <dl class="layui-nav-child" th:each="child:${menuList}"
-                            th:if="${child.menuType eq 'model' and child.menuCode eq currentMenu.menuCode and child.parentId eq menu.id}">
-                            <dd>
-                                <a th:href="@{${child.menuUrl}}" th:text="${child.menuName}"></a>
-                            </dd>
-                        </dl>
-                    </li>
-                </th:block>
+            <ul id="menuBlock" class="layui-nav layui-nav-tree" lay-filter="test">
             </ul>
         </div>
     </div>

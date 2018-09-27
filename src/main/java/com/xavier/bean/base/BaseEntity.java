@@ -1,5 +1,6 @@
 package com.xavier.bean.base;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,13 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class BaseEntity implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	@TableId(type = IdType.UUID)
 	protected String id;
+
+	@Override
+	public String toString() {
+		return this.getClass().getName() + ":" + JSON.toJSONString(this);
+	}
 }

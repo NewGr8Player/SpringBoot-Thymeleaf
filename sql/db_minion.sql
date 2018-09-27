@@ -1,19 +1,3 @@
-/*
- Navicat Premium Data Transfer
-
- Source Server         : localhost
- Source Server Type    : MySQL
- Source Server Version : 50722
- Source Host           : localhost:3306
- Source Schema         : db_minion
-
- Target Server Type    : MySQL
- Target Server Version : 50722
- File Encoding         : 65001
-
- Date: 25/09/2018 21:10:00
-*/
-
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -27,6 +11,7 @@ CREATE TABLE `sys_menu`  (
   `menu_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '菜单类型(model:模块.menu:菜单)',
   `menu_code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '菜单编码',
   `menu_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '菜单名称',
+  `menu_icon` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '菜单图标',
   `menu_url` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '菜单链接',
   `menu_order` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '菜单顺序',
   PRIMARY KEY (`id`) USING BTREE
@@ -35,8 +20,8 @@ CREATE TABLE `sys_menu`  (
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO `sys_menu` VALUES ('1', '0', 'project', 'root', '首页', '/index', '0');
-INSERT INTO `sys_menu` VALUES ('2', '0', 'model', 'root', '权限管理', '/role', '1');
+INSERT INTO `sys_menu` VALUES ('1', '0', 'channel', 'root', '首页', '', '/index', '0');
+INSERT INTO `sys_menu` VALUES ('2', '0', 'model', 'root', '权限管理', '', '/role', '1');
 
 -- ----------------------------
 -- Table structure for sys_permission

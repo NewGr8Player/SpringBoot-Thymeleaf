@@ -3,10 +3,7 @@ package com.xavier.bean;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.xavier.bean.base.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * 系统菜单
@@ -16,6 +13,7 @@ import lombok.Setter;
 @TableName(value = "sys_menu")
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Menu extends BaseEntity {
@@ -49,6 +47,12 @@ public class Menu extends BaseEntity {
      */
     @TableField("menu_url")
     private String menuUrl;
+
+    /**
+     * 菜单图标
+     */
+    @TableField("menu_icon")
+    private String menuIcon;
 
     /**
      * 菜单排序

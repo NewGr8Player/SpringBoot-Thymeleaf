@@ -16,6 +16,7 @@ import java.util.List;
 public class UserRoleServiceImpl extends BaseServiceImpl<UserRoleDao, UserRole> implements UserRoleService {
 
     @Override
+    @Cacheable(cacheNames = "userRoleList")
     public List<UserRole> findByUserId(String userId) {
         return dao.findByUserId(userId);
     }
