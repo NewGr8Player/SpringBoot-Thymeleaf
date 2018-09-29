@@ -42,13 +42,14 @@ public class MenuService extends ServiceImpl<MenuDao, Menu> {
     @Cacheable(cacheNames = "modelMenuList")
     public List<TreeNode> selectMenuTree(Menu menu, List<String> ids) {
         EntityWrapper entityWrapper = new EntityWrapper();
-        entityWrapper.setEntity(menu);
-
         if (StringUtils.isNotBlank(menu.getMenuType())) { /* menu_type */
             entityWrapper.eq("menu_type", menu.getMenuType());
         }
         if (StringUtils.isNotBlank(menu.getMenuCode())) { /* menu_code */
             entityWrapper.eq("menu_code", menu.getMenuCode());
+        }
+        if (StringUtils.isNotBlank(menu.getMenuName())) { /* menu_name */
+            entityWrapper.like("menu_name", "%" + menu.getMenuCode() + "%");
         }
         entityWrapper.in("id", ids);
         entityWrapper.orderBy("parent_id,menu_order");

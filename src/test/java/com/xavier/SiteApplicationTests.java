@@ -95,11 +95,6 @@ public class SiteApplicationTests {
 
     @Test
     public void pageTest() {
-        System.out.println(
-                JSON.toJSONString(
-                        roleService.selectRoleListPage(new Role(), new Page<Role>(1, 10)
-                        )
-                )
-        );
+
     }
 }

@@ -22,17 +22,36 @@ layui.use(['layer', 'jquery', 'element', 'table', 'laypage'], function () {
     /**
      * 刷新页面表格
      */
-    function tableRender(url) {
+    function tableRender() {
         table.render({
             elem: '#roleTable'
-            , url: url
+            , url: basePath + '/role/queryList'
+            , method: 'post'
             , page: true
+            , height: 'full-100'
+            , skin: 'line'
+            , even: true
+            , where: {
+                current: 1
+                , size: 10
+                , roleName: ''
+            }
+            , request: {
+                pageName: 'current'
+                , limitName: 'size'
+            }
+            , response: {
+                statusCode: 0
+                , statusName: 'status'
+                , msgName: 'msg'
+                , countName: 'total'
+                , dataName: 'records'
+            }
             , cols: [[
-                {field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left'}
-                , {field: 'username', title: '用户名', width: 80}
-                , {field: 'sex', title: '性别', width: 80, sort: true}
-                , {field: 'city', title: '城市', width: 80}
+                {field: 'id', title: 'ID', width: 20, sort: true, fixed: 'left'}
+                , {field: 'roleName', title: '角色名称', width: 80}
             ]]
         });
     }
+
 });

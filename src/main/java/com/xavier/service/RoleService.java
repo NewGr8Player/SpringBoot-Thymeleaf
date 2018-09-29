@@ -1,11 +1,11 @@
 package com.xavier.service;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xavier.bean.Role;
+import com.xavier.common.page.Page;
 import com.xavier.dao.RoleDao;
-import org.apache.ibatis.session.RowBounds;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,13 +35,15 @@ public class RoleService extends ServiceImpl<RoleDao, Role> {
     /**
      * 查询分页列表
      *
+     * @param rolePage
      * @param role
-     * @param rowBounds
      * @return
      */
-    public Page<Role> selectRoleListPage(Role role, RowBounds rowBounds) {
-        EntityWrapper<Role> wrapper = new EntityWrapper();
-        wrapper.setEntity(role);
-        return new Page<Role>().setRecords(baseMapper.selectList(wrapper));
+    public Page<Role> selectRoleListPage(Page<Role> rolePage, Role role) {
+        EntityWrapper entityWrapper = new EntityWrapper();
+        if (StringUtils.isNotBlank(role.getRoleName())) {/* role_name */
+            entityWrapper.like("role_name", "%" + role.getRoleName() + "%");
+        }
+        return (Page<Role>) rolePage.setRecords(baseMapper.selectPage(rolePage, entityWrapper));
     }
 }
