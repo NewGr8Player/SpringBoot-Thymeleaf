@@ -1,15 +1,29 @@
 package com.xavier.service;
 
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xavier.bean.User;
-import com.xavier.common.service.BaseService;
+import com.xavier.dao.UserDao;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-public interface UserService extends BaseService<User> {
+/**
+ * 用户Servier
+ *
+ * @author NewGr8Player
+ */
+@Service
+@Transactional(readOnly = true)
+public class UserService extends ServiceImpl<UserDao, User> {
 
-	/**
-	 * 根据用户名查找
-	 *
-	 * @param username 用户名
-	 * @return
-	 */
-	User findByUserName(String username);
+    /**
+     * 根据用户名查找
+     *
+     * @param username 用户名
+     * @return
+     */
+    @Cacheable(cacheNames = "user")
+    public User findByUserName(String username) {
+        return this.baseMapper.findByUsername(username);
+    }
 }

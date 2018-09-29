@@ -13,7 +13,4 @@ import org.apache.ibatis.annotations.Select;
  */
 @Mapper
 public interface PermissionDao extends BaseMapper<Permission> {
-
-	@Select("select * from sys_permission WHERE id=#{id}")
-	Permission findById(@Param("id") String id);
 }

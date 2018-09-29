@@ -1,8 +1,12 @@
 package com.xavier.service;
 
 
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xavier.bean.RolePermission;
-import com.xavier.common.service.BaseService;
+import com.xavier.dao.RolePermissionDao;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -11,7 +15,9 @@ import java.util.List;
  *
  * @author NewGr8Player
  */
-public interface RolePermissionService extends BaseService<RolePermission> {
+@Service
+@Transactional(readOnly = true)
+public class RolePermissionService extends ServiceImpl<RolePermissionDao, RolePermission> {
 
     /**
      * 根据roleId查找
@@ -19,12 +25,18 @@ public interface RolePermissionService extends BaseService<RolePermission> {
      * @param roleId
      * @return
      */
-    List<RolePermission> findByRoleId(String roleId);
+    public List<RolePermission> findByRoleId(String roleId) {
+        return baseMapper.findByRoleId(roleId);
+    }
 
     /**
      * 根据roleIdList批量查找
+     *
      * @param roleIdList
      * @return
      */
-    List<RolePermission> findByBatchRoleIds(List<String> roleIdList);
+    @Cacheable(cacheNames = "rolePermissionList")
+    public List<RolePermission> findByBatchRoleIds(List<String> roleIdList) {
+        return baseMapper.findByBatchRoleIds(roleIdList);
+    }
 }
