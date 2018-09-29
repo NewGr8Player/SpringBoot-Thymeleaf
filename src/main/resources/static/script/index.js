@@ -5,12 +5,61 @@
  *
  * @author NewGr8Player
  */
-layui.use(['layer', 'jquery'], function () {
+layui.use(['layer', 'jquery', 'element'], function () {
     var layer = layui.layer,
-        $ = layui.$
+        $ = layui.$,
+        element = layui.element;
 
+    /**
+     * tab页控件Id
+     *
+     * @type {string}
+     */
+    var panel = 'panel';
+
+    /**
+     * tab页方法
+     *
+     * @type {{tabAdd: tabAdd, tabChange: tabChange, tabDelete: tabDelete}}
+     */
+    var active = {
+        tabAdd: function (id, name, url) {
+            element.tabAdd(panel, {
+                title: name,
+                content: '<iframe data-frameid="' + id + '" scrolling="auto" frameborder="0" src="' + url + '" style="width:100%;height:99%;"></iframe>',
+                id: id
+            });
+        },
+        tabChange: function (id) {
+            element.tabChange(panel, id);
+        },
+        tabDelete: function (id) {
+            element.tabDelete(panel, id);
+        }
+    };
+
+    /**
+     * 页面加载完毕
+     */
     $(function () {
         menuRender($("#currentMenuCode").val());
+        element.init();
+        /* 初始化页面按钮 */
+    });
+
+    /**
+     * 导航点击事件
+     */
+    element.on('nav(menu)', function (elem) {
+        var $elem = $(elem),
+            link = $elem.attr('link'),
+            panelId = link.replace(/\//g, '').replace(/:/g, '');
+        if (!!link) {/* 是否为最终节点 */
+            if (!$('[lay-id="' + panelId + '"]').length) {/* 是否曾打开过 */
+                active.tabAdd(panelId, $elem.text(), link);
+            }
+            active.tabChange(panelId);
+        }
     });
 
     /**
@@ -52,7 +101,6 @@ layui.use(['layer', 'jquery'], function () {
      * @param menuList
      */
     function menuElementRender(menuList) {
-        console.log(menuList);
         $("#menuBlock").empty();
         var $parentELement = $('<li class="layui-nav-item"></li>');
         var $childContainer = $('<dl class="layui-nav-child"></dl>');
@@ -60,7 +108,7 @@ layui.use(['layer', 'jquery'], function () {
         var $result = $("#menuBlock");
         for (var index in menuList) {
             var $tempParent = $parentELement;
-            $tempParent.append(menuElementHandler(menuList[index]))
+            $tempParent.append(menuElementHandler(menuList[index]['current']));
             if (menuList[index]['child'].length > 0) {
                 var childList = menuList[index]['child'];
                 var $tempChildContainer = $childContainer;
@@ -82,9 +130,9 @@ layui.use(['layer', 'jquery'], function () {
      * @return {pe.fn.init|HTMLElement}
      */
     function menuElementHandler(currentElement) {
-        var url = !!currentElement['menuUrl'] ? currentElement['menuUrl'] : 'javascript:;'
+        var url = !!currentElement['menuUrl'] ? basePath + currentElement['menuUrl'] : '';
         var $icon = $('<i class="layui-icon ' + currentElement['menuIcon'] + '"></i>');
-        var $link = $('<a href="' + url + '"></a>');
+        var $link = $('<a href="javascript:;" link="' + url + '"></a>');
         $link.append($icon);
         $link.append($('<span>' + currentElement['menuName'] + '</span>'));
         return $link;
