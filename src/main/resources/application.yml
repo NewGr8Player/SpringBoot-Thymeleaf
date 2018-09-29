@@ -1,6 +1,6 @@
 server:
   address: 0.0.0.0
-  port: 8080
+  port: 8081
   undertow:
     io-threads: 16
     worker-threads: 256
@@ -82,3 +82,6 @@ threadpool:
 logging:
   level:
     com.xavier.dao: debug
+system:
+  title: 呦呵丶晓晓后台管理系统
+  short-name: NewGr8Player

@@ -4,8 +4,11 @@
 <head th:fragment="head">
     <th:block
             th:with='basePath=${#httpServletRequest.getScheme()+"://"+#httpServletRequest.getServerName()+":"+#httpServletRequest.getServerPort()+#httpServletRequest.getContextPath()}'>
-        <title>系统名称</title>
+        <title th:text="${SYSTEM_TITLE}"></title>
         <meta value="UTF-8"/>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
         <link rel="stylesheet" type="text/css" th:href="@{/static/layui/css/layui.css}" media="all"/>
         <script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
         <script type="text/javascript">
@@ -14,12 +17,6 @@
     </th:block>
 </head>
 <body>
-<!-- 底部固定区域 -->
-<th:block th:fragment="foot">
-    <div class="layui-footer">
-        © <a href="https://NewGr8Player.github.io">NewGr8Player.github.io</a> - 版权信息
-    </div>
-</th:block>
 </body>
 <!-- JS页面跳转至登录页 -->
 <th:block th:fragment="redirct-login">

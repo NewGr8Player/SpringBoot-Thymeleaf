@@ -15,7 +15,7 @@ layui.use(['layer', 'jquery', 'element'], function () {
      *
      * @type {string}
      */
-    var panel = 'panel';
+    var panel = 'LAY_app_body';
 
     /**
      * tab页方法
@@ -26,7 +26,11 @@ layui.use(['layer', 'jquery', 'element'], function () {
         tabAdd: function (id, name, url) {
             element.tabAdd(panel, {
                 title: name,
-                content: '<iframe data-frameid="' + id + '" scrolling="auto" frameborder="0" src="' + url + '" style="width:100%;height:99%;"></iframe>',
+                content:
+                    '<div class="layadmin-tabsbody-item layui-show">' +
+                    '<iframe data-frameid="' + id + '" scrolling="auto" frameborder="0" src="' + url + '"' +
+                    ' class="layadmin-iframe"></iframe>' +
+                    '</div>',
                 id: id
             });
         },
@@ -54,8 +58,10 @@ layui.use(['layer', 'jquery', 'element'], function () {
         var $elem = $(elem),
             link = $elem.attr('link'),
             panelId = link.replace(/\//g, '').replace(/:/g, '');
-        if (!!link) {/* 是否为最终节点 */
-            if (!$('[lay-id="' + panelId + '"]').length) {/* 是否曾打开过 */
+        if (!!link) {
+            /!* 是否为最终节点 *!/
+            if (!$('[lay-id="' + panelId + '"]').length) {
+                /!* 是否曾打开过 *!/
                 active.tabAdd(panelId, $elem.text(), link);
             }
             active.tabChange(panelId);
@@ -101,11 +107,11 @@ layui.use(['layer', 'jquery', 'element'], function () {
      * @param menuList
      */
     function menuElementRender(menuList) {
-        $("#menuBlock").empty();
+        $("#LAY-system-side-menu").empty();
         var $parentELement = $('<li class="layui-nav-item"></li>');
         var $childContainer = $('<dl class="layui-nav-child"></dl>');
-        var $childElement = $('<dd></dd>');
-        var $result = $("#menuBlock");
+        var $childElement = $('<dd class="layui-this"></dd>');
+        var $result = $("#LAY-system-side-menu");
         for (var index in menuList) {
             var $tempParent = $parentELement;
             $tempParent.append(menuElementHandler(menuList[index]['current']));
@@ -132,9 +138,9 @@ layui.use(['layer', 'jquery', 'element'], function () {
     function menuElementHandler(currentElement) {
         var url = !!currentElement['menuUrl'] ? basePath + currentElement['menuUrl'] : '';
         var $icon = $('<i class="layui-icon ' + currentElement['menuIcon'] + '"></i>');
-        var $link = $('<a href="javascript:;" link="' + url + '"></a>');
+        var $link = $('<a href="javascript:;" lay-href="' + url + '"></a>');
         $link.append($icon);
-        $link.append($('<span>' + currentElement['menuName'] + '</span>'));
+        $link.append($('<cite>' + currentElement['menuName'] + '</cite>'));
         return $link;
     }
 });

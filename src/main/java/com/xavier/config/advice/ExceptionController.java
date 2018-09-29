@@ -1,6 +1,7 @@
-package com.xavier.config.error;
+package com.xavier.config.advice;
 
 import org.apache.shiro.authz.UnauthorizedException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,6 +25,10 @@ public class ExceptionController {
 	 */
 	public static final String ERROR_PAGE = "/error/error.html";
 
+	@Value("${system.title}")
+	private String SYSTEM_TITLE;
+	@Value("${system.short-name}")
+	private String SYSTEM_SHORT_NAME;
 	/**
 	 * 应用到所有@RequestMapping注解方法，在其执行之前初始化数据绑定器
 	 *
@@ -40,7 +45,8 @@ public class ExceptionController {
 	 */
 	@ModelAttribute
 	public void addAttributes(ModelAndView modelAndView) {
-		modelAndView.addObject("global", "GlobalInfo");
+		modelAndView.addObject("SYSTEM_TITLE", SYSTEM_TITLE);
+		modelAndView.addObject("SYSTEM_SHORT_NAME", SYSTEM_SHORT_NAME);
 		//TODO 将全局内容放在这里
 	}
 
