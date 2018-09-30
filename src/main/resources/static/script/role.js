@@ -5,12 +5,11 @@
  *
  * @author NewGr8Player
  */
-layui.use(['layer', 'jquery', 'element', 'table', 'laypage'], function () {
+layui.use(['layer', 'jquery', 'element', 'table', 'laypage', 'form'], function () {
     var layer = layui.layer,
         $ = layui.jquery,
-        element = layui.element,
         table = layui.table,
-        laypage = layui.laypage;
+        form = layui.form;
 
     /**
      * 页面加载完毕
@@ -20,22 +19,23 @@ layui.use(['layer', 'jquery', 'element', 'table', 'laypage'], function () {
     });
 
     /**
+     * 数据表格对象
+     */
+    var tableGrid;
+
+    /**
      * 刷新页面表格
      */
     function tableRender() {
-        table.render({
+        tableGrid = table.render({
             elem: '#roleTable'
             , url: basePath + '/role/queryList'
             , method: 'post'
             , page: true
+            , even: true
+            , limit: 10
             , height: 'full-100'
             , skin: 'line'
-            , even: true
-            , where: {
-                current: 1
-                , size: 10
-                , roleName: ''
-            }
             , request: {
                 pageName: 'current'
                 , limitName: 'size'
@@ -48,10 +48,21 @@ layui.use(['layer', 'jquery', 'element', 'table', 'laypage'], function () {
                 , dataName: 'records'
             }
             , cols: [[
-                {field: 'id', title: 'ID', width: 20, sort: true, fixed: 'left'}
-                , {field: 'roleName', title: '角色名称', width: 80}
+                {field: 'sequence', title: '序号', width: '8%', type: 'numbers'}
+                , {field: 'id', title: '唯一标示', width: '25%', sort: true}
+                , {field: 'roleName', title: '角色名称', width: '65%'}
             ]]
         });
     }
 
+    form.on('submit(query)', function (data) {
+        tableGrid.reload({
+            where: {
+                roleName: data.field.roleName
+            }
+            , page: {
+                curr: 1
+            }
+        });
+    });
 });

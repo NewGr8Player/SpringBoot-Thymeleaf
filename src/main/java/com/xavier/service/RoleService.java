@@ -42,7 +42,7 @@ public class RoleService extends ServiceImpl<RoleDao, Role> {
     public Page<Role> selectRoleListPage(Page<Role> rolePage, Role role) {
         EntityWrapper entityWrapper = new EntityWrapper();
         if (StringUtils.isNotBlank(role.getRoleName())) {/* role_name */
-            entityWrapper.like("role_name", "%" + role.getRoleName() + "%");
+            entityWrapper.like("role_name", role.getRoleName());
         }
         return (Page<Role>) rolePage.setRecords(baseMapper.selectPage(rolePage, entityWrapper));
     }

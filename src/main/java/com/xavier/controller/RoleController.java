@@ -15,20 +15,20 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/role")
 public class RoleController {
 
-    @Autowired
-    private RoleService roleService;
+	@Autowired
+	private RoleService roleService;
 
-    @RequiresPermissions(value = {"sys:role:view"})
-    @RequestMapping(path = {"", "/list"}, method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView roleListPage(ModelAndView modelAndView, Role role) {
-        modelAndView.setViewName("role/roleList");
-        return modelAndView;
-    }
+	@RequiresPermissions(value = {"sys:role:view"})
+	@RequestMapping(path = {"", "/list"}, method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView roleListPage(ModelAndView modelAndView, Role role) {
+		modelAndView.setViewName("role/roleList");
+		return modelAndView;
+	}
 
-    @ResponseBody
-    @RequiresPermissions(value = {"sys:role:view"})
-    @RequestMapping(path = "/queryList", method = {RequestMethod.GET, RequestMethod.POST})
-    public Page<Role> roleListQuery(Page<Role> rolePage, Role role) {
-        return roleService.selectRoleListPage(rolePage, role);
-    }
+	@ResponseBody
+	@RequiresPermissions(value = {"sys:role:view"})
+	@RequestMapping(path = "/queryList", method = {RequestMethod.GET, RequestMethod.POST})
+	public Page<Role> roleListQuery(Page<Role> rolePage, Role role) {
+		return roleService.selectRoleListPage(rolePage, role);
+	}
 }
