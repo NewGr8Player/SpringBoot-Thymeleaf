@@ -86,7 +86,7 @@ layui.use(['layer', 'jquery', 'element', 'laytpl'], function () {
      * 页面加载完毕
      */
     $(function () {
-        menuRender($("#currentMenuCode").val());
+        menuRender();
         element.render('nav', 'layadmin-system-side-menu');
     });
 
@@ -165,12 +165,10 @@ layui.use(['layer', 'jquery', 'element', 'laytpl'], function () {
 
     /**
      * 渲染菜单
-     *
-     * @param currentMenuCode
      */
-    function menuRender(currentMenuCode) {
+    function menuRender() {
         $.ajax({
-            url: basePath + '/modelMenu?menuType=model&menuCode=' + currentMenuCode,
+            url: basePath + '/modelMenu?menuType=model&visiable=show',
             type: 'post',
             async: false,
             success: function (data) {

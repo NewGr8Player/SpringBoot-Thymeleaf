@@ -3,6 +3,7 @@ package com.xavier.controller;
 import com.xavier.bean.Role;
 import com.xavier.common.page.Page;
 import com.xavier.service.RoleService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,10 +26,21 @@ public class RoleController {
 		return modelAndView;
 	}
 
+	@RequiresPermissions(value = {"sys:role:edit"})
+	@RequestMapping(path = "/form", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView roleEditPage(ModelAndView modelAndView, Role role) {
+		if(null != role && StringUtils.isNotBlank(role.getId())){
+			modelAndView.addObject("role",roleService.selectById(role.getId()));
+		}
+		modelAndView.setViewName("role/roleForm");
+		return modelAndView;
+	}
+
 	@ResponseBody
 	@RequiresPermissions(value = {"sys:role:view"})
 	@RequestMapping(path = "/queryList", method = {RequestMethod.GET, RequestMethod.POST})
 	public Page<Role> roleListQuery(Page<Role> rolePage, Role role) {
 		return roleService.selectRoleListPage(rolePage, role);
 	}
+
 }

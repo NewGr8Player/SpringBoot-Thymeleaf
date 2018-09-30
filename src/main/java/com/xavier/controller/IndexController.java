@@ -3,7 +3,6 @@ package com.xavier.controller;
 import com.xavier.bean.*;
 import com.xavier.common.structure.TreeNode;
 import com.xavier.service.*;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,16 +42,9 @@ public class IndexController {
     @RequestMapping(path = "/index", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView indexPage(ModelAndView modelAndView, Menu menu) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
-        if (null == menu) {
-            menu = new Menu();
-        }
-        if (StringUtils.isNotBlank(menu.getMenuCode())) {
-            menu.setMenuCode("root");
-        }
         List<Menu> menuList = menuService.selectBatchIds(searchMenuIdListByUser(user));
         modelAndView.addObject("currentUser", user);
         modelAndView.addObject("menuList", menuList);
-        modelAndView.addObject("currentMenu", menu);
         modelAndView.setViewName("index");
         return modelAndView;
     }

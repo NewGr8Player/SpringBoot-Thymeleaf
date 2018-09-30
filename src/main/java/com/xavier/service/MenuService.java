@@ -45,8 +45,8 @@ public class MenuService extends ServiceImpl<MenuDao, Menu> {
         if (StringUtils.isNotBlank(menu.getMenuType())) { /* menu_type */
             entityWrapper.eq("menu_type", menu.getMenuType());
         }
-        if (StringUtils.isNotBlank(menu.getMenuCode())) { /* menu_code */
-            entityWrapper.eq("menu_code", menu.getMenuCode());
+        if (StringUtils.isNotBlank(menu.getVisiable())) { /* visiable */
+            entityWrapper.eq("visiable", menu.getVisiable());
         }
         if (StringUtils.isNotBlank(menu.getMenuName())) { /* menu_name */
             entityWrapper.like("menu_name", "%" + menu.getMenuCode() + "%");

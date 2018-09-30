@@ -55,6 +55,9 @@ layui.use(['layer', 'jquery', 'element', 'table', 'laypage', 'form'], function (
         });
     }
 
+    /**
+     * 查询
+     */
     form.on('submit(query)', function (data) {
         tableGrid.reload({
             where: {
@@ -64,5 +67,22 @@ layui.use(['layer', 'jquery', 'element', 'table', 'laypage', 'form'], function (
                 curr: 1
             }
         });
+    });
+
+    /**
+     * 新增页面弹窗
+     */
+    $('#add').bind('click', function () {
+        parent.layer.open({
+            title: '新增'
+            , type: 2
+            , content: 'http://www.baidu.com'
+        });
+    });
+
+    /**
+     * 保存
+     */
+    form.on('submit(editForm)', function (data) {
     });
 });
