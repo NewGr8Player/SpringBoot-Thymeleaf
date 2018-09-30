@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author NewGr8Player
  */
 @ControllerAdvice
-public class ExceptionController {
+public class AdviceController {
 
 	/**
 	 * 错误页面
@@ -29,6 +29,9 @@ public class ExceptionController {
 	private String SYSTEM_TITLE;
 	@Value("${system.short-name}")
 	private String SYSTEM_SHORT_NAME;
+	@Value("${system.front-site-url}")
+	private String FRONT_SITE_URL;
+
 	/**
 	 * 应用到所有@RequestMapping注解方法，在其执行之前初始化数据绑定器
 	 *
@@ -47,6 +50,7 @@ public class ExceptionController {
 	public void addAttributes(ModelAndView modelAndView) {
 		modelAndView.addObject("SYSTEM_TITLE", SYSTEM_TITLE);
 		modelAndView.addObject("SYSTEM_SHORT_NAME", SYSTEM_SHORT_NAME);
+		modelAndView.addObject("FRONT_SITE_URL", FRONT_SITE_URL);
 		//TODO 将全局内容放在这里
 	}
 

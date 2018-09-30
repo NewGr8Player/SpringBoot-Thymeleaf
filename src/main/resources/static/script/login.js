@@ -14,6 +14,9 @@ layui.use(['layer', 'jquery', 'element', 'form'], function () {
      * 登录失败
      */
     $(function () {
+        if (window.parent.length > 0) { /* 避免session超时嵌套 */
+            window.parent.location = basePath + '/login.html';
+        }
         var message = $("#message").val();
         if (!!message) {
             layer.msg(message, {icon: 2, timeout: 1000, shade: [0.8, '#393D49'], shadeClose: true});

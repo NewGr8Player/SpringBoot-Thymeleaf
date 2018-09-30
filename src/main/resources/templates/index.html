@@ -14,17 +14,17 @@
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item layadmin-flexible" lay-unselect>
                     <a href="javascript:;" layadmin-event="flexible" title="弹出/收缩">
-                        <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
+                        <i id="LAY_app_flexible" class="layui-icon layui-icon-shrink-right"></i>
                     </a>
                 </li>
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>
-                    <a href="http://www.layui.com/admin/" target="_blank" title="前台">
-                        <i class="layui-icon layui-icon-website"></i>
+                    <a th:href="${FRONT_SITE_URL}" target="_blank" title="前台">
+                        <i id="frontPage" class="layui-icon layui-icon-website"></i>
                     </a>
                 </li>
                 <li class="layui-nav-item" lay-unselect>
                     <a href="javascript:;" layadmin-event="refresh" title="刷新">
-                        <i class="layui-icon layui-icon-refresh-3"></i>
+                        <i id="refresh" class="layui-icon layui-icon-refresh-3"></i>
                     </a>
                 </li>
                 <!--
@@ -37,9 +37,9 @@
             <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
 
                 <li class="layui-nav-item" lay-unselect>
-                    <a lay-href="javascript:alert('暂未开发');" layadmin-event="message" lay-text="消息中心">
+                    <a lay-href="javascript:;" layadmin-event="message" lay-text="消息中心">
                         <i class="layui-icon layui-icon-notice"></i>
-                        <span class="layui-badge-dot"></span>
+                        <!--<span class="layui-badge-dot"></span>-->
                     </a>
                 </li>
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>
@@ -62,16 +62,11 @@
                         <cite th:text="${currentUser.nickname}"></cite>
                     </a>
                     <dl class="layui-nav-child">
-                        <!--<dd><a lay-href="set/user/info.html">打开tab页</a></dd>-->
                         <dd><a id="userInfo">基本资料</a></dd>
                         <dd><a id="editPasswd">修改密码</a></dd>
                         <hr>
-                        <dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
+                        <dd th:href="@{/logout}" style="text-align: center;"><a>退出</a></dd>
                     </dl>
-                </li>
-                <!--<li class="layui-nav-item"><a th:href="@{/logout}">退出</a></li>-->
-                <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-unselect>
-                    <a href="javascript:;" layadmin-event="more"><i class="layui-icon layui-icon-more-vertical"></i></a>
                 </li>
             </ul>
         </div>
@@ -95,21 +90,17 @@
                     <li class="layui-nav-item" lay-unselect>
                         <a href="javascript:;"></a>
                         <dl class="layui-nav-child layui-anim-fadein">
-                            <dd layadmin-event="closeThisTabs"><a href="javascript:;">关闭当前标签页</a></dd>
-                            <dd layadmin-event="closeOtherTabs"><a href="javascript:;">关闭其它标签页</a></dd>
-                            <dd layadmin-event="closeAllTabs"><a href="javascript:;">关闭全部标签页</a></dd>
+                            <dd id="closeThisTabs"><a href="javascript:;">关闭当前标签页</a></dd>
+                            <dd id="closeOtherTabs"><a href="javascript:;">关闭其它标签页</a></dd>
+                            <dd id="closeAllTabs"><a href="javascript:;">关闭全部标签页</a></dd>
                         </dl>
                     </li>
                 </ul>
             </div>
             <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
-                <ul class="layui-tab-title" id="LAY_app_tabsheader">
-                    <li lay-id="/default" lay-attr="/default" class="layui-this">
+                <ul id="LAY_app_tabsheader" class="layui-tab-title">
+                    <li lay-id="default" link="/default" class="">
                         <i class="layui-icon layui-icon-home"></i>
-                    </li>
-                    <li lay-id="set/system/website.html" lay-attr="set/system/website.html" class="layui-this">
-                        <span>网站设置</span>
-                        <i class="layui-icon layui-unselect layui-tab-close">ဆ</i>
                     </li>
                 </ul>
             </div>
