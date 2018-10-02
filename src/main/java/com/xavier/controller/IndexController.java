@@ -50,7 +50,7 @@ public class IndexController {
     }
 
     /**
-     * 首页
+     * 默认展示页面
      *
      * @param modelAndView
      * @return

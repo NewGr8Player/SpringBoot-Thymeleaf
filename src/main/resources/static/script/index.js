@@ -5,11 +5,15 @@
  *
  * @author NewGr8Player
  */
-layui.use(['layer', 'jquery', 'element', 'laytpl'], function () {
-    var layer = layui.layer,
-        $ = layui.$,
-        element = layui.element,
-        laytpl = layui.laytpl;
+layui.config({
+    base: '/static/theme/'
+}).extend({
+    theme: 'theme'
+}).use(['layer', 'jquery', 'element', 'theme', 'laytpl'], function () {
+    var layer = layui.layer
+        , $ = layui.$
+        , element = layui.element
+        , theme = layui.theme;
 
     /**
      * 打开tab标签
@@ -83,14 +87,6 @@ layui.use(['layer', 'jquery', 'element', 'laytpl'], function () {
     };
 
     /**
-     * 页面加载完毕
-     */
-    $(function () {
-        menuRender();
-        element.render('nav', 'layadmin-system-side-menu');
-    });
-
-    /**
      * 导航点击事件
      */
     element.on('nav(layadmin-system-side-menu)', function (elem) {
@@ -101,6 +97,14 @@ layui.use(['layer', 'jquery', 'element', 'laytpl'], function () {
             tabEvent.tabAdd(layId, $elem.text(), link);
         }
     });
+
+    /**
+     * 切换主题按钮点击
+     */
+    $('#userInfo').bind('click', function () {
+
+    });
+
 
     /**
      * 用户按钮点击
@@ -160,7 +164,7 @@ layui.use(['layer', 'jquery', 'element', 'laytpl'], function () {
      * 刷新后台
      */
     $('#refresh').bind('click', function () {
-        $('#mainContent').attr('src',$('#mainContent').attr('src'));
+        $('#mainContent').attr('src', $('#mainContent').attr('src'));
     });
 
     /**
@@ -168,14 +172,14 @@ layui.use(['layer', 'jquery', 'element', 'laytpl'], function () {
      */
     function menuRender() {
         $.ajax({
-            url: basePath + '/modelMenu?menuType=model&visiable=show',
-            type: 'post',
-            async: false,
-            success: function (data) {
+            url: basePath + '/modelMenu?menuType=model&visiable=show'
+            , type: 'post'
+            , success: function (data) {
                 menuElementRender(data);
-            },
-            error: function (info) {
-                layer.error(info);
+                element.render('nav', 'layadmin-system-side-menu');
+            }
+            , error: function (res) {
+                layer.msg('菜单渲染失败，原因：' + res, {icon: 2});
             }
         });
     }
@@ -223,5 +227,15 @@ layui.use(['layer', 'jquery', 'element', 'laytpl'], function () {
         return $link;
     }
 
-})
-;
+    /**
+     * 页面加载完毕
+     */
+    $(function () {
+        menuRender();
+        theme.initTheme(10);
+        $('[lay-id=default]').attr('link', basePath + '/default');
+        $('[lay-id=default]').bind('click',function(){
+            switchTab('default');
+        });
+    });
+});

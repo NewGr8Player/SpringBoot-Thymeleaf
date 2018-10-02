@@ -41,6 +41,9 @@ public class RoleService extends ServiceImpl<RoleDao, Role> {
      */
     public Page<Role> selectRoleListPage(Page<Role> rolePage, Role role) {
         EntityWrapper entityWrapper = new EntityWrapper();
+        if (StringUtils.isNotBlank(role.getRoleCode())) {/* role_code */
+            entityWrapper.like("role_code", role.getRoleCode());
+        }
         if (StringUtils.isNotBlank(role.getRoleName())) {/* role_name */
             entityWrapper.like("role_name", role.getRoleName());
         }

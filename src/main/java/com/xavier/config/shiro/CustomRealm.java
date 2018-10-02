@@ -60,11 +60,11 @@ public class CustomRealm extends AuthorizingRealm {
 				/* 角色 */
 				Role role = this.roleService.selectById(userRole.getRoleId());
 				if (null != role) {
-					simpleAuthorizationInfo.addRole(role.getRoleName());
+					simpleAuthorizationInfo.addRole(role.getRoleCode());
 					List<RolePermission> rolePermissionList = this.rolePermissionService.findByRoleId(role.getId());
 					for (RolePermission rolePermission : rolePermissionList) {
 						/* 权限 */
-						Permission permission = this.permissionService.selectById(rolePermission.getId());
+						Permission permission = this.permissionService.selectById(rolePermission.getPermissionId());
 						if (null != permission) {
 							simpleAuthorizationInfo.addStringPermission(permission.getPermissionCode());
 						}

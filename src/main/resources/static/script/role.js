@@ -6,8 +6,7 @@
  * @author NewGr8Player
  */
 layui.use(['layer', 'jquery', 'element', 'table', 'laypage', 'form'], function () {
-    var layer = layui.layer,
-        $ = layui.jquery,
+    var $ = layui.jquery,
         table = layui.table,
         form = layui.form;
 
@@ -29,7 +28,7 @@ layui.use(['layer', 'jquery', 'element', 'table', 'laypage', 'form'], function (
     function tableRender() {
         tableGrid = table.render({
             elem: '#roleTable'
-            , url: basePath + '/role/queryList'
+            , url: basePath + '/sys/role/queryList'
             , method: 'post'
             , page: true
             , even: true
@@ -50,23 +49,44 @@ layui.use(['layer', 'jquery', 'element', 'table', 'laypage', 'form'], function (
             , cols: [[
                 {field: 'sequence', title: '序号', width: '8%', type: 'numbers'}
                 , {field: 'id', title: '唯一标示', width: '25%', sort: true}
-                , {field: 'roleName', title: '角色名称', width: '65%'}
+                , {field: 'roleCode', title: '角色编码', width: '30%'}
+                , {field: 'roleName', title: '角色名称', width: '35%'}
             ]]
+        });
+    }
+
+    /**
+     * 重载数据表格
+     *
+     * @param data
+     */
+    function reloadTable(data) {
+        tableGrid.reload({
+            where: {
+                roleCode: data.field.roleCode
+                , roleName: data.field.roleName
+            }
+            , page: {
+                curr: 1
+            }
         });
     }
 
     /**
      * 查询
      */
-    form.on('submit(query)', function (data) {
-        tableGrid.reload({
-            where: {
-                roleName: data.field.roleName
-            }
-            , page: {
-                curr: 1
-            }
-        });
+    form.on('submit(queryRole)', function (data) {
+        reloadTable(data);
+        return false;
+    });
+
+    /**
+     * 查询
+     */
+    form.on('submit(queryRoleReset)', function (data) {
+        $('#roleQueryForm').reset();
+        reloadTable(data);
+        return false;
     });
 
     /**
@@ -76,13 +96,45 @@ layui.use(['layer', 'jquery', 'element', 'table', 'laypage', 'form'], function (
         parent.layer.open({
             title: '新增'
             , type: 2
-            , content: 'http://www.baidu.com'
+            , content: basePath + '/sys/role/form'
+            , btn: ['保存', '重置', '取消']
+            , yes: function (index, layero) {
+                var obj = parent.layer.getChildFrame('body', index);
+                obj.find('#saveBtn').trigger('click');
+                //obj.find('#saveBtn').attr('disable','disable');
+            }
+            , btn2: function (index, layero) {
+                parent.layer.getChildFrame('body', index).find('#resetBtn').trigger('click');
+                return false;
+            }
+            , btn3: function () {
+                /* 取消什么都不做，直接关闭 */
+                return true;
+            }
         });
     });
 
     /**
      * 保存
      */
-    form.on('submit(editForm)', function (data) {
+    form.on('submit(roleForm)', function (form) {
+        console.log(form.field);
+        $.ajax({
+            url: basePath + '/sys/role/save'
+            , data: form.field
+            , type: 'post'
+            , success: function (data) {
+                console.log(data);
+                var result = data['code'] === 'success';
+                layer.msg(data['msg'], {icon: result ? 1 : 2});
+                if (result) {
+                    parent.layer.close(parent.layer.getFrameIndex(window.name));
+                } else {
+                    $('#saveBtn').attr('disable', '');
+                }
+                console.log(result);
+            }
+        });
+        return false;
     });
 });

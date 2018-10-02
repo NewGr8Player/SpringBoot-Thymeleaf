@@ -8,7 +8,13 @@
 <div class="layui-fluid">
     <div class="layui-card">
         <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-            <div class="layui-form-item">
+            <form id="roleQueryForm" class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">角色编码</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="roleCode" placeholder="请输入角色名称" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">角色名称</label>
                     <div class="layui-input-block">
@@ -16,20 +22,20 @@
                     </div>
                 </div>
                 <div class="layui-inline layui-btn-group">
-                    <button class="layui-btn layuiadmin-btn-admin" lay-submit lay-filter="query">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="queryRole">
                         <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
                         查询
                     </button>
-                    <button type="reset" class="layui-btn layuiadmin-btn-admin">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="queryRoleReset">
                         <i class="layui-icon layui-icon-close layuiadmin-button-btn"></i>
                         重置
                     </button>
-                    <button id="add" class="layui-btn layuiadmin-btn-admin">
+                    <button id="add" class="layui-btn layui-btn-normal">
                         <i class="layui-icon layui-icon-add-1 layuiadmin-button-btn"></i>
                         新增
                     </button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
     <div class="layui-card-body">

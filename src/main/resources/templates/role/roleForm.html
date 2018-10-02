@@ -6,19 +6,29 @@
 </head>
 <body>
 <div class="layui-card-body">
-    <form class="layui-form" action="" lay-filter="editForm">
+    <form class="layui-form" action="" >
+        <div class="layui-row layui-col-space10 layui-form-item">
+            <div class="layui-col-lg6">
+                <label class="layui-form-label">角色编码：</label>
+                <div class="layui-input-block">
+                    <input type="text" name="roleCode" lay-verify="required" placeholder="请输入角色编码" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+        </div>
         <div class="layui-row layui-col-space10 layui-form-item">
             <div class="layui-col-lg6">
                 <label class="layui-form-label">角色名称：</label>
                 <div class="layui-input-block">
-                    <input type="text" name="roleName" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                    <input type="text" name="roleName" lay-verify="required" placeholder="请输入角色名称" autocomplete="off"
+                           class="layui-input">
                 </div>
             </div>
         </div>
-        <div class="layui-form-item">
+        <div class="layui-form-item" style="display: none;">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="save">保存</button>
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                <button id="saveBtn" class="layui-btn" lay-submit lay-filter="roleForm">保存</button>
+                <button id="resetBtn" type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
     </form>

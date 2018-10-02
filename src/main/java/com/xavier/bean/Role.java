@@ -20,9 +20,15 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Role extends BaseEntity {
 
-	/**
-	 * 角色名称
-	 */
-	@TableField("role_name")
-	private String roleName;
+    /**
+     * 角色编码
+     */
+    @TableField("role_code")
+    private String roleCode;
+
+    /**
+     * 角色名称
+     */
+    @TableField("role_name")
+    private String roleName;
 }

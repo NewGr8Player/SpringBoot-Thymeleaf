@@ -61,7 +61,7 @@ public class AdviceController {
 	 * @return
 	 */
 	@ExceptionHandler(value = UnauthorizedException.class)
-	public ModelAndView unauthorizedHandler(HttpServletRequest request, Exception ex) {
+	public ModelAndView unauthorizedHandler(UnauthorizedException ex) {
 		return commonHandler(ERROR_PAGE, "403", ex.getMessage());
 	}
 
@@ -71,8 +71,8 @@ public class AdviceController {
 	 * @param ex
 	 * @return
 	 */
-	@ExceptionHandler(value = {Exception.class, TemplateProcessingException.class})
-	public ModelAndView errorHandler(HttpServletRequest request, Exception ex) {
+	@ExceptionHandler(value = {Exception.class})
+	public ModelAndView errorHandler(Exception ex) {
 		return commonHandler(ERROR_PAGE, "500", ex.getMessage());
 	}
 
