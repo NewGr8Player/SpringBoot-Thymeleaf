@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="/common/base::head"></th:block>
+    <script type="text/javascript" th:src="@{/static/script/role.js}"></script>
+</head>
+<body>
+    <div class="layui-fluid">
+        <div class="layui-card">
+            <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                <form id="roleQueryForm" class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">角色编码</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="roleCode" placeholder="请输入角色名称" autocomplete="off"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">角色名称</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="roleName" placeholder="请输入角色名称" autocomplete="off"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-btn-group">
+                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="queryRole">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                            查询
+                        </button>
+                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="queryRoleReset">
+                            <i class="layui-icon layui-icon-close layuiadmin-button-btn"></i>
+                            重置
+                        </button>
+                        <button id="add" class="layui-btn layui-btn-normal">
+                            <i class="layui-icon layui-icon-add-1 layuiadmin-button-btn"></i>
+                            新增
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="layui-card-body">
+            <table id="roleTable"></table>
+        </div>
+    </div>
+</body>
+</html>

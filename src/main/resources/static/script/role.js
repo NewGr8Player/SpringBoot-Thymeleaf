@@ -101,7 +101,7 @@ layui.use(['layer', 'jquery', 'element', 'table', 'laypage', 'form'], function (
             , yes: function (index, layero) {
                 var obj = parent.layer.getChildFrame('body', index);
                 obj.find('#saveBtn').trigger('click');
-                //obj.find('#saveBtn').attr('disable','disable');
+                obj.find('#saveBtn').attr('disable','disable');
             }
             , btn2: function (index, layero) {
                 parent.layer.getChildFrame('body', index).find('#resetBtn').trigger('click');
@@ -132,7 +132,6 @@ layui.use(['layer', 'jquery', 'element', 'table', 'laypage', 'form'], function (
                 } else {
                     $('#saveBtn').attr('disable', '');
                 }
-                console.log(result);
             }
         });
         return false;
