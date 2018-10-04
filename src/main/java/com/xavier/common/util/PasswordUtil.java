@@ -1,9 +1,6 @@
 package com.xavier.common.util;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.mindrot.jbcrypt.BCrypt;
-
-import java.io.UnsupportedEncodingException;
 
 /**
  * 密码加密工具类
