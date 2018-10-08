@@ -72,8 +72,6 @@ spring:
     suffix: .html
     mode: HTML
     encoding: UTF-8
-  mvc:
-    static-path-pattern: /static/**
 threadpool:
   core-pool-size: 10
   max-pool-size: 100

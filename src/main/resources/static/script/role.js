@@ -8,7 +8,8 @@
 layui.use(['layer', 'jquery', 'element', 'table', 'laypage', 'form'], function () {
     var $ = layui.jquery,
         table = layui.table,
-        form = layui.form;
+        form = layui.form,
+        layer = parent.layer;
 
     /**
      * 页面加载完毕
@@ -84,8 +85,11 @@ layui.use(['layer', 'jquery', 'element', 'table', 'laypage', 'form'], function (
      * 查询
      */
     form.on('submit(queryRoleReset)', function (data) {
-        $('#roleQueryForm').reset();
-        reloadTable(data);
+        $('#roleQueryForm').get(0).reset();
+        for(var i in data.field){
+            data.field[i] = '';
+        }
+        reloadTable();
         return false;
     });
 
@@ -93,18 +97,18 @@ layui.use(['layer', 'jquery', 'element', 'table', 'laypage', 'form'], function (
      * 新增页面弹窗
      */
     $('#add').bind('click', function () {
-        parent.layer.open({
+        layer.open({
             title: '新增'
             , type: 2
             , content: basePath + '/sys/role/form'
             , btn: ['保存', '重置', '取消']
             , yes: function (index, layero) {
-                var obj = parent.layer.getChildFrame('body', index);
+                var obj = layer.getChildFrame('body', index);
                 obj.find('#saveBtn').trigger('click');
-                obj.find('#saveBtn').attr('disable','disable');
+                obj.find('#saveBtn').attr('disable', 'disable');
             }
             , btn2: function (index, layero) {
-                parent.layer.getChildFrame('body', index).find('#resetBtn').trigger('click');
+                layer.getChildFrame('body', index).find('#resetBtn').trigger('click');
                 return false;
             }
             , btn3: function () {
@@ -118,17 +122,17 @@ layui.use(['layer', 'jquery', 'element', 'table', 'laypage', 'form'], function (
      * 保存
      */
     form.on('submit(roleForm)', function (form) {
-        console.log(form.field);
         $.ajax({
             url: basePath + '/sys/role/save'
             , data: form.field
             , type: 'post'
             , success: function (data) {
-                console.log(data);
                 var result = data['code'] === 'success';
                 layer.msg(data['msg'], {icon: result ? 1 : 2});
                 if (result) {
-                    parent.layer.close(parent.layer.getFrameIndex(window.name));
+                    layer.close(layer.getFrameIndex(window.name));
+                    $('#roleQueryForm')[0].reset();
+                    reloadTable(data);
                 } else {
                     $('#saveBtn').attr('disable', '');
                 }

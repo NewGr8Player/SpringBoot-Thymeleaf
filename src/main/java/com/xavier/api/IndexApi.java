@@ -1,21 +1,21 @@
-package com.xavier.controller;
+package com.xavier.api;
 
 import com.xavier.bean.*;
+import com.xavier.common.structure.TreeNode;
 import com.xavier.service.*;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Controller
+@RestController
 @RequestMapping("/")
-public class IndexController {
+public class IndexApi {
 
 	@Autowired
 	private RoleService roleService;
@@ -31,14 +31,14 @@ public class IndexController {
 	private PermissionMenuService permissionMenuService;
 
 	/**
-	 * 首页
+	 * 当前菜单
 	 *
-	 * @param modelAndView
+	 * @param menu
 	 * @return
 	 */
 	@RequiresPermissions({"sys:root:index"})
-	@RequestMapping(path = "/index", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView indexPage(ModelAndView modelAndView, Menu menu) {
+	@RequestMapping(path = "/modelMenu", method = {RequestMethod.GET, RequestMethod.POST})
+	public List<TreeNode> searchModelMenu(Menu menu) {
 		User user = (User) SecurityUtils.getSubject().getPrincipal();
 		List<UserRole> userRoleList = userRoleService.findByUserId(user.getId());
 		List<Role> roleList = roleService.selectBatchIds(
@@ -53,25 +53,7 @@ public class IndexController {
 		List<PermissionMenu> permissionMenuList = permissionMenuService.findByBatchPermissionIds(
 				permissionList.stream().map(p -> p.getId()).collect(Collectors.toList())
 		);
-		List<Menu> menuList = menuService.selectBatchIds(
-				permissionMenuList.stream().map(pm -> pm.getMenuId()).collect(Collectors.toList())
-		);
-		modelAndView.addObject("currentUser", user);
-		modelAndView.addObject("menuList", menuList);
-		modelAndView.setViewName("index");
-		return modelAndView;
+		return menuService.selectMenuTree(menu, permissionMenuList.stream().map(pm -> pm.getMenuId()).collect(Collectors.toList()));
 	}
 
-	/**
-	 * 默认展示页面
-	 *
-	 * @param modelAndView
-	 * @return
-	 */
-	@RequiresPermissions({"sys:root:index"})
-	@RequestMapping(path = "/default", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView defaultViewpage(ModelAndView modelAndView) {
-		modelAndView.setViewName("default");
-		return modelAndView;
-	}
 }
