@@ -82,7 +82,7 @@ layui.use(['layer', 'jquery', 'element', 'table', 'laypage', 'form'], function (
     });
 
     /**
-     * 查询
+     * 重置
      */
     form.on('submit(queryRoleReset)', function (data) {
         $('#roleQueryForm').get(0).reset();
