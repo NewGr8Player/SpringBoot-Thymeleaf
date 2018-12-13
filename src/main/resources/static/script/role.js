@@ -48,7 +48,8 @@ layui.use(['layer', 'jquery', 'element', 'table', 'laypage', 'form'], function (
                 , dataName: 'records'
             }
             , cols: [[
-                {field: 'sequence', title: '序号', width: '8%', type: 'numbers'}
+                {width: '8%', type: 'checkbox'}
+                , {field: 'sequence', title: '序号', width: '8%', type: 'numbers'}
                 , {field: 'id', title: '唯一标示', width: '25%', sort: true}
                 , {field: 'roleCode', title: '角色编码', width: '30%'}
                 , {field: 'roleName', title: '角色名称', width: '35%'}
@@ -86,11 +87,20 @@ layui.use(['layer', 'jquery', 'element', 'table', 'laypage', 'form'], function (
      */
     form.on('submit(queryRoleReset)', function (data) {
         $('#roleQueryForm').get(0).reset();
-        for(var i in data.field){
+        for (var i in data.field) {
             data.field[i] = '';
         }
         reloadTable();
         return false;
+    });
+
+    $("#export").bind('click', function () {
+        var checkStatus = table.checkStatus('roleTable');
+
+        if (checkStatus.data.length || checkStatus.isAll) {
+            table.exportFile(tableGrid, checkStatus.data, 'xls');
+        }
+
     });
 
     /**
